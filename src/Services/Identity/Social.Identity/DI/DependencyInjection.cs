@@ -135,7 +135,7 @@ public static class DependencyInjection
                 .Enroll<IdentityDbContext>();
 
             options.PublishMessage<UserStartRegistrationEvent>()
-                .ToRabbitQueue("eshop-email");
+                .ToRabbitQueue("social-email");
         }
     }
     

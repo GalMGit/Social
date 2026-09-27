@@ -8,6 +8,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="Email/Templates/Register.html"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MailKit" />
         <PackageReference Include="Microsoft.Extensions.Hosting"/>
+        <PackageReference Include="WolverineFx.RabbitMQ" />
+        <PackageReference Include="WolverineFx"/>
+        <PackageReference Include="WolverineFx.RuntimeCompilation"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Contracts\Social.Contracts.csproj" />
     </ItemGroup>
 </Project>

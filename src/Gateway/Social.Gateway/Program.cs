@@ -4,6 +4,7 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddOcelot(

@@ -31,7 +31,14 @@ builder.Host.UseWolverine(opt =>
     opt.AddIdentityMessaging(builder.Configuration);
 });
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Servers = [];
+        return Task.CompletedTask;
+    });
+});
 builder.Services.AddIdentity(builder.Configuration);
 
 var app = builder.Build();
