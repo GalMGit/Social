@@ -12,6 +12,7 @@
         <PackageReference Include="StackExchange.Redis" />
         <PackageReference Include="WolverineFx"/>
         <PackageReference Include="Scalar.AspNetCore"/>
+        <PackageReference Include="WolverineFx.RuntimeCompilation"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
         <PackageReference Include="BCrypt.Net-Next"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>

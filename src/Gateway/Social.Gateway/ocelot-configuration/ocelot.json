@@ -1,16 +1,30 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/gateway/login",
+      "UpstreamPathTemplate": "/api/v1/auth/register",
       "UpstreamHttpMethod": [
         "Post"
       ],
-      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamPathTemplate": "/api/v1/auth/register",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5235
+          "Port": 5241
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/identity/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5241
         }
       ]
     }

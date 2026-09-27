@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/v1/auth/register",
-      "UpstreamHttpMethod": ["Post"],
-      "DownstreamPathTemplate": "/api/v1/auth/register",
+      "UpstreamPathTemplate": "/openapi/identity/v1.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

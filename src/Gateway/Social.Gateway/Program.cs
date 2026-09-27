@@ -1,9 +1,8 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddOpenApi();
 
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
@@ -15,10 +14,22 @@ builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.MapScalarApiReference("/docs", options =>
 {
-    app.MapOpenApi();
-}
+    options
+        .WithTitle("Social API")
+        .AddDocument(
+            "identity",
+            "Identity API",
+            "/openapi/identity/v1.json",
+            isDefault: true);
+});
 
-await app.UseOcelot();
+app.UseWhen(
+    context => !context.Request.Path.StartsWithSegments("/docs"),
+    branch =>
+    {
+        branch.UseOcelot();
+    });
+
 await app.RunAsync();
