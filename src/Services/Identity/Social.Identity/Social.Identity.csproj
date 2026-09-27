@@ -24,9 +24,14 @@
 
     <ItemGroup>
       <Folder Include="DI\" />
-      <Folder Include="Domain\" />
-      <Folder Include="Features\" />
-      <Folder Include="Infrastructure\" />
+      <Folder Include="Infrastructure\Auth\" />
+      <Folder Include="Infrastructure\Cache\" />
+      <Folder Include="Infrastructure\Persistence\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Contracts\Social.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Shared\Social.Shared.csproj" />
     </ItemGroup>
 
 </Project>
