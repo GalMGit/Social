@@ -1,4 +1,9 @@
 using System.Security.Cryptography;
+using Social.Contracts.Events.Identity;
+using Social.Identity.Application.Abstractions.Auth;
+using Social.Identity.Application.Abstractions.Cache;
+using Social.Identity.Application.Errors;
+using Social.Identity.Domain;
 using Social.Shared.ResultType;
 using Wolverine;
 
@@ -7,7 +12,7 @@ namespace Social.Identity.Features.CreateUser;
 public sealed class CreateUserHandler(
     ICacheService cacheService,
     IMessageBus bus,
-    IPasswordHasher<> passwordHasher)
+    IPasswordHasher passwordHasher)
 {
     public async Task<Result> Handle(
         CreateUserCommand command,

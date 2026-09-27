@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DI\" />
       <Folder Include="Infrastructure\Auth\" />
       <Folder Include="Infrastructure\Cache\" />
       <Folder Include="Infrastructure\Persistence\" />
