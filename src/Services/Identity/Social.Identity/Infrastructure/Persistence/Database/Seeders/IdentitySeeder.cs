@@ -12,7 +12,6 @@ public static class IdentitySeeder
     public static async Task SeedAsync(
         IdentityDbContext db,
         IOptions<AdminOptions> options,
-        IPasswordHasher passwordHasher,
         CancellationToken ct = default)
     {
         AdminOptions adminOptions = options.Value;
@@ -120,7 +119,6 @@ public static class IdentitySeeder
         await SeedSuperAdminAsync(db,
             roles[RoleNames.SuperAdmin],
             adminOptions,
-            passwordHasher,
             ct);
     }
 
@@ -150,7 +148,6 @@ public static class IdentitySeeder
         IdentityDbContext db,
         Role adminRole,
         AdminOptions options,
-        IPasswordHasher passwordHasher,
         CancellationToken ct)
     {
         var adminExists = await db.Users
@@ -164,8 +161,7 @@ public static class IdentitySeeder
             Id = Guid.CreateVersion7(),
             Username = options.Username,
             Email = options.Email,
-            PasswordHash = passwordHasher.GenerateHash(
-                options.Password),
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(options.Password),
             CreatedAt = DateTime.UtcNow,
             Roles = [adminRole]
         };
