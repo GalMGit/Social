@@ -1,11 +1,11 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Social.Identity.Domain;
 
 namespace Social.Identity.Infrastructure.Persistence.Database.Configs;
 
-public sealed class RoleConfiguration 
-    : IEntityTypeConfiguration<Role>
+public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
@@ -19,9 +19,5 @@ public sealed class RoleConfiguration
 
         builder.HasIndex(x => x.Name)
             .IsUnique();
-
-        builder.HasMany(x => x.Permissions)
-            .WithMany()
-            .UsingEntity("RolePermissions");
     }
 }

@@ -32,15 +32,6 @@ public class JwtProvider(
                     ClaimTypes.Role,
                     role.Name)));
 
-        claims.AddRange(
-            user.Roles
-                .SelectMany(role => role.Permissions)
-                .Distinct()
-                .Select(permission =>
-                    new Claim(
-                        PermissionClaim.Type, 
-                        permission.Name)));
-
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_options.SecretKey)),

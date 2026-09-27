@@ -12,7 +12,6 @@ public sealed class IdentityDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-    public DbSet<Permission> Permissions => Set<Permission>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

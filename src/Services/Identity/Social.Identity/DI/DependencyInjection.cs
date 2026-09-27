@@ -57,7 +57,6 @@ public static class DependencyInjection
             services.AddValidatorsFromAssembly(
                 Assembly.GetExecutingAssembly());
             
-            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<IJwtProvider, JwtProvider>();
             services.AddSingleton<ICacheService, RedisCacheService>();
