@@ -8,6 +8,9 @@
     <Project Path="src/Gateway/Social.Gateway/Social.Gateway.csproj" />
   </Folder>
   <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Email/">
+    <Project Path="src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Identity/">
     <Project Path="src/Services/Identity/Social.Identity/Social.Identity.csproj" />
   </Folder>
