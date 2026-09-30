@@ -17,6 +17,8 @@ public sealed class PostConfiguration
             .IsRequired();
 
         builder.Property(x => x.CommunityId);
+        
+        builder.HasIndex(x => x.CommunityId);
 
         builder.HasIndex(x => x.AuthorId);
 
