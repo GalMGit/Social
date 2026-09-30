@@ -24,4 +24,9 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Contracts\Social.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Shared\Social.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
