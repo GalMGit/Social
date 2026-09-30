@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +13,7 @@ using Social.Identity.Infrastructure.Auth;
 using Social.Identity.Infrastructure.Cache;
 using Social.Identity.Infrastructure.Persistence.Database.Context;
 using Social.Identity.Infrastructure.Persistence.Database.Seeders;
+using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -64,59 +64,6 @@ public static class DependencyInjection
             return services;
         }
         
-        private void AddAuth(IConfiguration configuration)
-        {
-            services.Configure<JwtOptions>(
-                configuration.GetSection(nameof(JwtOptions)));
-
-            services.AddOptions<JwtOptions>()
-                .Validate(o => 
-                    !string.IsNullOrEmpty(o.SecretKey), 
-                    "SecretKey is required")
-                .ValidateOnStart();
-
-            var jwtOptions = configuration
-                .GetSection(nameof(JwtOptions))
-                .Get<JwtOptions>();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>
-                {
-                    o.TokenValidationParameters = new()
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(jwtOptions!.SecretKey)),
-                        ValidAlgorithms = [SecurityAlgorithms.HmacSha256],
-                        NameClaimType = ClaimTypes.NameIdentifier,
-                    };
-
-                    o.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            var request = context.HttpContext.Request;
-                            
-                            var authHeader = request.Headers.Authorization.FirstOrDefault();
-                            if (!string.IsNullOrEmpty(authHeader) &&
-                                authHeader.StartsWith(
-                                    "Bearer ", 
-                                    StringComparison.OrdinalIgnoreCase))
-                            {
-                                context.Token = authHeader["Bearer "
-                                    .Length..].Trim();
-                            }
-
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
-
-            services.AddAuthorization();
-        }
     }
     
     extension(WolverineOptions options)

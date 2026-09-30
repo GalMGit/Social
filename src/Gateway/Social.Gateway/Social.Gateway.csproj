@@ -15,4 +15,8 @@
       <_ContentIncludedByDefault Remove="Properties\ocelot-configuration\ocelot.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\BuildingBlocks\Social.Shared\Social.Shared.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Social.Identity.Application.Abstractions.Auth;
 using Social.Identity.Domain;
+using Social.Shared.Authentication;
 
 namespace Social.Identity.Infrastructure.Auth;
 
@@ -39,7 +40,7 @@ public class JwtProvider(
 
         var token = new JwtSecurityToken(
             signingCredentials: signingCredentials,
-            expires: DateTime.UtcNow.AddMinutes(_options.Expires),
+            expires: DateTime.UtcNow.AddMinutes(_options.ExpiresHours),
             claims: claims);
 
         return new JwtSecurityTokenHandler()
