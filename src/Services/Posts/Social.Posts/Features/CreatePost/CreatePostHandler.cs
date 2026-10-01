@@ -24,7 +24,7 @@ public sealed class CreatePostHandler(
             AuthorId = command.AuthorId,
             Title = request.Title,
             Content = request.Content,
-            ImagePath = request.ImagePath,
+            ImagePath = null,
             CommunityId = request.CommunityId,
             CreatedAt = DateTime.UtcNow
         };

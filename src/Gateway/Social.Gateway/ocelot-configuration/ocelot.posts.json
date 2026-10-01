@@ -10,12 +10,15 @@
           "Host": "localhost",
           "Port": 5009
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
-      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamPathTemplate": "/api/v1/posts/{postId}",
       "UpstreamHttpMethod": ["Get"],
-      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamPathTemplate": "/api/v1/posts/{postId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
