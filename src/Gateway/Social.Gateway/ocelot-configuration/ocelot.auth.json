@@ -25,6 +25,18 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/api/v1/auth/email/confirm",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/v1/auth/email/confirm",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5241
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/api/v1/test",
       "UpstreamHttpMethod": ["Get"],
       "DownstreamPathTemplate": "/api/v1/test",

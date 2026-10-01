@@ -8,6 +8,29 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
+        <PackageReference Include="StackExchange.Redis" />
+        <PackageReference Include="WolverineFx"/>
+        <PackageReference Include="Scalar.AspNetCore"/>
+        <PackageReference Include="WolverineFx.RuntimeCompilation"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+        <PackageReference Include="BCrypt.Net-Next"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
+        <PackageReference Include="WolverineFx.RabbitMQ" />
+        <PackageReference Include="WolverineFx.EntityFrameworkCore" />
+        <PackageReference Include="WolverineFx.Postgresql" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Contracts\Social.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Shared\Social.Shared.csproj" />
     </ItemGroup>
 
 </Project>

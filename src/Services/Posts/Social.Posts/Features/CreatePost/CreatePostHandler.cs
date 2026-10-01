@@ -3,8 +3,11 @@ using Social.Posts.Domain;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.ResultType;
 using Wolverine;
+using Wolverine.Attributes;
 
 namespace Social.Posts.Features.CreatePost;
+
+[Transactional(typeof(PostsDbContext))]
 public sealed class CreatePostHandler(
     PostsDbContext context,
     IMessageBus bus)
@@ -27,7 +30,6 @@ public sealed class CreatePostHandler(
         };
 
         context.Posts.Add(post);
-        await context.SaveChangesAsync(ct);
 
         await bus.PublishAsync(
             new PostCreatedEvent(

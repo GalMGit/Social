@@ -1,41 +1,29 @@
 using System.Reflection;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Social.Contracts.Events.Posts;
-using Social.Posts.Infrastructure.Persistence.Context;
-using Social.Shared.Authentication;
-using Social.Shared.Endpoint;
+using Social.Users.Infrastructure.Persistence.Context;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
 using Wolverine.Persistence.Durability;
 using Wolverine.Postgresql;
 using Wolverine.RabbitMQ;
 
-namespace Social.Posts.DI;
+namespace Social.Users.DI;
 
 public static class DependencyInjection
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddPosts(
+        public IServiceCollection AddUsers(
             IConfiguration configuration)
         {
             services.AddDbContextWithWolverineIntegration<
-                PostsDbContext>(
+                UsersDbContext>(
                 options =>
                 {
                     options.UseNpgsql(
                         configuration.GetConnectionString(
-                            "PostsDb"));
+                            "UsersDb"));
                 });
-            
-            services.AddAuth(configuration);
-
-            services.AddEndpoints(
-                Assembly.GetExecutingAssembly());
-
-            services.AddValidatorsFromAssembly(
-                Assembly.GetExecutingAssembly());
 
             return services;
         }
@@ -43,25 +31,30 @@ public static class DependencyInjection
 
     extension(WolverineOptions options)
     {
-        public void AddPostsMessaging(
+        public void AddUsersMessaging(
             IConfiguration configuration)
         {
             options.Discovery.IncludeAssembly(
                 Assembly.GetExecutingAssembly());
 
-            options.PublishMessage<PostCreatedEvent>()
-                .ToRabbitQueue("social-posts");
+            options.ListenToRabbitQueue("social-users")
+                .ConfigureQueue(q =>
+                {
+                    q.IsDurable = true;
+                    q.AutoDelete = false;
+                    q.IsExclusive = false;
+                });
         }
     }
 
     extension(IServiceProvider services)
     {
-        public async Task InitializePostsAsync()
+        public async Task InitializeUsersAsync()
         {
             using var scope = services.CreateScope();
 
             var db = scope.ServiceProvider
-                .GetRequiredService<PostsDbContext>();
+                .GetRequiredService<UsersDbContext>();
 
             await db.Database.MigrateAsync();
         }

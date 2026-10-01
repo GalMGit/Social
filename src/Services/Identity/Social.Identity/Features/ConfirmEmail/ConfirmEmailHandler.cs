@@ -68,7 +68,8 @@ public sealed class ConfirmEmailHandler(
 
         await bus.PublishAsync(
             new UserCreatedEvent(
-                user.Id));
+                user.Id,
+                user.Username));
 
         return Result.Success();
     }

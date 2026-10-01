@@ -17,18 +17,18 @@ builder.Host.UseWolverine(opt =>
     opt.UseRabbitMq(
         builder.Configuration.GetConnectionString(
             "RabbitMq")!);
-    
+
     opt.Policies.DisableConventionalLocalRouting();
-    
+
     opt.UseEntityFrameworkCoreTransactions();
     opt.Policies.UseDurableOutboxOnAllSendingEndpoints();
     opt.Policies.UseDurableInboxOnAllListeners();
-    
+
     opt.PersistMessagesWithPostgresql(
         builder.Configuration.GetConnectionString(
-            "WolverineDb")!,
+            "IdentityDb")!,
         role: MessageStoreRole.Main);
-    
+
     opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
     opt.AddIdentityMessaging(builder.Configuration);
 });

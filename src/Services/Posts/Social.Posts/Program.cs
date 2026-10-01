@@ -26,7 +26,7 @@ builder.Host.UseWolverine(opt =>
 
     opt.PersistMessagesWithPostgresql(
         builder.Configuration.GetConnectionString(
-            "WolverineDb")!,
+            "PostsDb")!,
         role: MessageStoreRole.Main);
 
     opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;

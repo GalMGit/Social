@@ -74,14 +74,11 @@ public static class DependencyInjection
             options.Discovery.IncludeAssembly(
                 Assembly.GetExecutingAssembly());
             
-            options.PersistMessagesWithPostgresql(
-                    configuration.GetConnectionString(
-                        "IdentityDb")!,
-                    role: MessageStoreRole.Ancillary)
-                .Enroll<IdentityDbContext>();
-
             options.PublishMessage<UserStartRegistrationEvent>()
                 .ToRabbitQueue("social-email");
+            
+            options.PublishMessage<UserCreatedEvent>()
+                .ToRabbitQueue("social-users");
         }
     }
     
