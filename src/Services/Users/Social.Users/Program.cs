@@ -1,4 +1,5 @@
 using JasperFx.CodeGeneration.Model;
+using Social.Shared.OpenApi;
 using Social.Users.DI;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -30,7 +31,7 @@ builder.Host.UseWolverine(opt =>
     opt.AddUsersMessaging(builder.Configuration);
 });
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApiWithBearer();
 
 builder.Services.AddUsers(builder.Configuration);
 
