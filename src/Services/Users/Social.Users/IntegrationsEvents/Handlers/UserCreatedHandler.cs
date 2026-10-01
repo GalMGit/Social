@@ -33,8 +33,8 @@ public sealed class UserCreatedHandler(
             CreatedAt = DateTime.UtcNow
         };
 
-        context.Profiles.Add(profile);
-        await context.SaveChangesAsync(ct);
+        await context.Profiles.AddAsync(
+            profile, ct);
 
         logger.LogInformation(
             "Profile created for user {UserId}",

@@ -29,7 +29,8 @@ public sealed class CreatePostHandler(
             CreatedAt = DateTime.UtcNow
         };
 
-        context.Posts.Add(post);
+        await context.Posts.AddAsync(
+            post, ct);
 
         await bus.PublishAsync(
             new PostCreatedEvent(
