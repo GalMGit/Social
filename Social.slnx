@@ -17,4 +17,7 @@
   <Folder Name="/src/Services/Posts/">
     <Project Path="src/Services/Posts/Social.Posts/Social.Posts.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Users/">
+    <Project Path="src/Services/Users/Social.Users/Social.Users.csproj" />
+  </Folder>
 </Solution>
