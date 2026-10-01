@@ -14,7 +14,6 @@
         <PackageReference Include="Scalar.AspNetCore"/>
         <PackageReference Include="WolverineFx.RuntimeCompilation"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
-        <PackageReference Include="BCrypt.Net-Next"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>

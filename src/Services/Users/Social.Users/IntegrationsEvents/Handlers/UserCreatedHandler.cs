@@ -16,7 +16,8 @@ public sealed class UserCreatedHandler(
         CancellationToken ct)
     {
         var exists = await context.Profiles
-            .AnyAsync(x => x.Id == @event.UserId, ct);
+            .AnyAsync(x => 
+                x.Id == @event.UserId, ct);
 
         if (exists)
         {
