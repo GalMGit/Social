@@ -35,21 +35,6 @@
           "Port": 5241
         }
       ]
-    },
-    {
-      "UpstreamPathTemplate": "/api/v1/test",
-      "UpstreamHttpMethod": ["Get"],
-      "DownstreamPathTemplate": "/api/v1/test",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5241
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
     }
   ]
 }

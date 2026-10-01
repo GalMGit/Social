@@ -43,23 +43,6 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/api/v1/test",
-      "UpstreamHttpMethod": [
-        "Get"
-      ],
-      "DownstreamPathTemplate": "/api/v1/test",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5241
-        }
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer"
-      }
-    },
-    {
       "UpstreamPathTemplate": "/openapi/identity/v1.json",
       "UpstreamHttpMethod": [
         "Get"
@@ -70,6 +53,48 @@
         {
           "Host": "localhost",
           "Port": 5241
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/posts/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
         }
       ]
     }

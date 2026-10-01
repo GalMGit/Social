@@ -34,8 +34,12 @@ app.MapScalarApiReference("/docs", options =>
         .AddDocument(
             "identity",
             "Identity API",
-            "/openapi/identity/v1.json",
-            isDefault: true);
+            "/openapi/identity/v1.json")
+        .AddDocument(
+            "posts",
+            "Posts API",
+            "/openapi/posts/v1.json");
+
 });
 
 app.UseWhen(

@@ -11,6 +11,20 @@
           "Port": 5241
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/posts/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
+        }
+      ]
     }
   ]
 }
