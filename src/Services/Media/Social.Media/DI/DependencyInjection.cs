@@ -6,6 +6,7 @@ using Social.Media.Infrastructure.Storage;
 using Social.Media.Infrastructure.Storage.Factories;
 using Social.Media.Infrastructure.Storage.Options;
 using Social.Media.Infrastructure.Storage.UrlServices;
+using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 
 namespace Social.Media.DI;
@@ -19,6 +20,8 @@ public static class DependencyInjection
         {
             services.AddEndpoints(
                 Assembly.GetExecutingAssembly());
+            
+            services.AddAuth(configuration);
             
             services.Configure<PublicStorageOptions>(
                 configuration.GetSection(

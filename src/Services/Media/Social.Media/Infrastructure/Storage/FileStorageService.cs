@@ -37,20 +37,20 @@ public sealed class FileStorageService : IFileStorageService
 
     public async Task<FileUploadResult> UploadPictureAsync(
         UploadFile file,
-        Guid productId,
+        Guid ownerId,
         CancellationToken ct = default)
     {
         var detectedContentType = Validate(file.Stream);
         ValidateFileSize(file.Length, detectedContentType);
 
         var mediaKey = CreateMediaKey(
-            productId, 
+            ownerId, 
             detectedContentType);
 
         if (detectedContentType.StartsWith("image/"))
             return await UploadImageWithThumbnailAsync(
                 file, 
-                productId, 
+                ownerId, 
                 mediaKey, 
                 detectedContentType, ct);
 
@@ -59,12 +59,12 @@ public sealed class FileStorageService : IFileStorageService
     }
     
     private static string CreateMediaKey(
-        Guid productId, 
+        Guid ownerId, 
         string contentType)
-        => $"products/{productId}/{Guid.NewGuid()}{GetExtension(contentType)}";
+        => $"media/{ownerId}/{Guid.NewGuid()}{GetExtension(contentType)}";
     
-    private static string CreateThumbnailKey(Guid productId)
-        => $"products/{productId}/{Guid.NewGuid()}_thumb.jpg";
+    private static string CreateThumbnailKey(Guid ownerId)
+        => $"media/{ownerId}/{Guid.NewGuid()}_thumb.jpg";
     
     private static string GetExtension(string contentType)
     {
