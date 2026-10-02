@@ -14,6 +14,9 @@
   <Folder Name="/src/Services/Identity/">
     <Project Path="src/Services/Identity/Social.Identity/Social.Identity.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Media/">
+    <Project Path="src/Services/Media/Social.Media/Social.Media.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Posts/">
     <Project Path="src/Services/Posts/Social.Posts/Social.Posts.csproj" />
   </Folder>

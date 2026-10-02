@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="AWSSDK.S3" />
+        <PackageReference Include="FFMpegCore" />
+        <PackageReference Include="Mime-Detective" />
+        <PackageReference Include="SixLabors.ImageSharp" />
+        <PackageReference Include="WolverineFx"/>
+        <PackageReference Include="Scalar.AspNetCore"/>
+        <PackageReference Include="WolverineFx.RuntimeCompilation"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Contracts\Social.Contracts.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Social.Shared\Social.Shared.csproj" />
+    </ItemGroup>
+
+</Project>
