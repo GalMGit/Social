@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
+using Social.Users.Application.Media;
 using Social.Users.Infrastructure.Persistence.Context;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -29,6 +30,12 @@ public static class DependencyInjection
             
             services.AddEndpoints(
                 Assembly.GetExecutingAssembly());
+            
+            services.Configure<MediaOptions>(
+                configuration.GetSection(
+                    nameof(MediaOptions)));
+
+            services.AddSingleton<IMediaUrlBuilder, MediaUrlBuilder>();
             
             services.AddAuth(configuration);
 

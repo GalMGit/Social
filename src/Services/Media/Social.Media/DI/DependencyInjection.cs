@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.Extensions.Options;
 using Social.Media.Application.Abstractions.IServices.IMediaServices;
 using Social.Media.Infrastructure.Storage;
 using Social.Media.Infrastructure.Storage.Factories;
@@ -23,12 +24,22 @@ public static class DependencyInjection
             services.Configure<PublicStorageOptions>(
                 configuration.GetSection(
                     nameof(PublicStorageOptions)));
-            
-            services.Configure<ApiOptions>(
-                configuration.GetSection(
-                    nameof(ApiOptions)));
 
             services.AddSingleton<S3ClientFactory>();
+            
+            services.AddSingleton<IPublicStorage>(sp =>
+            {
+                var factory = sp.GetRequiredService<S3ClientFactory>();
+                var options = sp.GetRequiredService<IOptions<PublicStorageOptions>>()
+                    .Value;
+                
+                return new PublicStorage(
+                    factory.Create(
+                        options.ServiceUrl,
+                        options.AccessKey,
+                        options.SecretKey),
+                    Options.Create(options));
+            });
             
             services.AddScoped<IFileStorageService, FileStorageService>();
 

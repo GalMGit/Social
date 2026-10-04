@@ -6,10 +6,10 @@ namespace Social.Users.Application.Mappers;
 public static class ProfileMapper
 {
     public static ProfileResponse ToProfileResponse(
-        this UserProfile profile)
-    {
-        return new ProfileResponse(
+        this UserProfile profile,
+        string? imageUrl)
+        => new (
             profile.Id, 
-            profile.Username);
-    }
+            profile.Username,
+            imageUrl);
 }
