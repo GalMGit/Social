@@ -2,6 +2,7 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Social.Contracts.Events.Posts;
+using Social.Posts.Application.Media;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
@@ -33,6 +34,12 @@ public static class DependencyInjection
 
             services.AddEndpoints(
                 Assembly.GetExecutingAssembly());
+            
+            services.Configure<MediaOptions>(
+                configuration.GetSection(
+                    nameof(MediaOptions)));
+            
+            services.AddSingleton<IMediaUrlBuilder, MediaUrlBuilder>();
 
             services.AddValidatorsFromAssembly(
                 Assembly.GetExecutingAssembly());

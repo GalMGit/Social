@@ -71,6 +71,62 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/openapi/users/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5126
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5126
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/media",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DownstreamPathTemplate": "/api/v1/media",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5196
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/media/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5196
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/api/v1/posts",
       "UpstreamHttpMethod": [
         "Post"

@@ -1,0 +1,13 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5126 }
+      ]
+    }
+  ]
+}

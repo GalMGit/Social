@@ -2,14 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using Social.Posts.Application.DTOs;
 using Social.Posts.Application.Errors;
 using Social.Posts.Application.Mappers;
+using Social.Posts.Application.Media;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.ResultType;
 
 namespace Social.Posts.Features.GetPostById;
 
-
 public sealed class GetPostByIdHandler(
-    PostsDbContext context)
+    PostsDbContext context,
+    IMediaUrlBuilder urlBuilder)
 {
     public async Task<Result<PostResponse>> Handle(
         GetPostByIdQuery query, 
@@ -23,7 +24,10 @@ public sealed class GetPostByIdHandler(
             return Result<PostResponse>.Failure(
                 PostErrors.NotFound);
 
+        var imageUrl = urlBuilder.ToPublicUrl(
+            post.ImagePath);
+
         return Result<PostResponse>.Success(
-            post.ToPostResponse());
+            post.ToPostResponse(imageUrl));
     }
 }

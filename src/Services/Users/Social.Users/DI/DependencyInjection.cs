@@ -1,5 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Social.Shared.Authentication;
+using Social.Shared.Endpoint;
 using Social.Users.Infrastructure.Persistence.Context;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -24,6 +26,11 @@ public static class DependencyInjection
                         configuration.GetConnectionString(
                             "UsersDb"));
                 });
+            
+            services.AddEndpoints(
+                Assembly.GetExecutingAssembly());
+            
+            services.AddAuth(configuration);
 
             return services;
         }

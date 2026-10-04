@@ -5,7 +5,9 @@ namespace Social.Posts.Application.Mappers;
 
 public static class PostMapper
 {
-    public static PostResponse ToPostResponse(this Post post)
+    public static PostResponse ToPostResponse(
+        this Post post,
+        string? imageUrl)
     {
         return new PostResponse(
             post.Id,
@@ -13,7 +15,7 @@ public static class PostMapper
             post.Title,
             post.Content,
             post.CommunityId,
-            null,
+            imageUrl,
             post.CreatedAt);
     }
 }

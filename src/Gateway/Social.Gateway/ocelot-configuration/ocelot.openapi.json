@@ -6,10 +6,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5241
-        }
+        {"Host": "localhost", "Port": 5241}
       ]
     },
     {
@@ -20,10 +17,18 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5009
-        }
+        {"Host": "localhost", "Port": 5009}
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/users/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5126}
       ]
     }
   ]

@@ -6,10 +6,7 @@
       "DownstreamPathTemplate": "/api/v1/posts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5009
-        }
+        { "Host": "localhost", "Port": 5009 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"
@@ -21,10 +18,7 @@
       "DownstreamPathTemplate": "/api/v1/posts/{postId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5009
-        }
+        { "Host": "localhost", "Port": 5009 }
       ]
     }
   ]

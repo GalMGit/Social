@@ -31,10 +31,7 @@ public sealed class FileStorageService : IFileStorageService
             ]
         }.Build();
     }
-
-    public string GetUrl(string key)
-        => _publicStorage.GetPublicUrl(key);
-
+    
     public async Task<FileUploadResult> UploadPictureAsync(
         UploadFile file,
         Guid ownerId,

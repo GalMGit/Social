@@ -1,30 +1,27 @@
-using Social.Posts.Application.DTOs;
 using Social.Shared.Endpoint;
 using Social.Shared.ResultType;
+using Social.Users.Application.DTOs;
 using Wolverine;
 
-namespace Social.Posts.Features.GetPostById;
+namespace Social.Users.Features.GetProfile;
 
 public sealed class Endpoint : IEndpoint
 {
-    public const string Name = "GetPostById";
-    
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("posts/{postId:guid}", async (
-                Guid postId,
+        app.MapGet("users/{userId}/profile", async (
+                Guid userId,
                 IMessageBus bus,
                 CancellationToken ct) =>
             {
                 var result = await bus.InvokeAsync<
-                    Result<PostResponse>>(
-                        new GetPostByIdQuery(
-                            postId), ct);
+                    Result<ProfileResponse>>(
+                        new GetProfileQuery(
+                            userId), ct);
 
                 return result.ToHttpResponse();
             })
-            .WithTags("Posts")
             .AllowAnonymous()
-            .WithName(Name);
+            .WithTags("Users");
     }
 }

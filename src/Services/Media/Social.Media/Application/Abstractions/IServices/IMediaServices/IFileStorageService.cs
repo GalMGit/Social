@@ -2,8 +2,6 @@ namespace Social.Media.Application.Abstractions.IServices.IMediaServices;
 
 public interface IFileStorageService
 {
-    string GetUrl(string key);
-    
     Task<FileUploadResult> UploadPictureAsync(
         UploadFile file, 
         Guid productId,

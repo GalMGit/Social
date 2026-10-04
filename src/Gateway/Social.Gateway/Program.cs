@@ -42,7 +42,11 @@ app.MapScalarApiReference("/docs", options =>
         .AddDocument(
             "media",
             "Media API",
-            "/openapi/media/v1.json");
+            "/openapi/media/v1.json")
+        .AddDocument(
+            "users",
+            "Users API",
+            "/openapi/users/v1.json");
 
 });
 

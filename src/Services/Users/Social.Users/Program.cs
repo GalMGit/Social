@@ -1,4 +1,5 @@
 using JasperFx.CodeGeneration.Model;
+using Social.Shared.Endpoint;
 using Social.Shared.OpenApi;
 using Social.Users.DI;
 using Wolverine;
@@ -37,8 +38,14 @@ builder.Services.AddUsers(builder.Configuration);
 
 var app = builder.Build();
 
+var api = app.MapGroup("/api/v1");
+app.MapEndpoints(api);
+
 await app.Services.InitializeUsersAsync();
 
 app.MapOpenApi();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 await app.RunAsync();
