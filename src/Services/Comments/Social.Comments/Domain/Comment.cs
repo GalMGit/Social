@@ -3,7 +3,7 @@ namespace Social.Comments.Domain;
 public sealed class Comment
 {
     public Guid Id { get; set; }
-    public string Text { get; set; }
+    public string Text { get; set; } = null!;
     public Guid PostId { get; set; }
     public Guid AuthorId { get; set; }
     public DateTime CreatedAt { get; set; }
