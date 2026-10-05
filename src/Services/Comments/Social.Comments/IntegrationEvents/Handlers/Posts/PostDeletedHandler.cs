@@ -3,7 +3,7 @@ using Social.Comments.Infrastructure.Persistence.Context;
 using Social.Contracts.Events.Posts;
 using Wolverine.Attributes;
 
-namespace Social.Comments.IntegrationEvents.Handlers;
+namespace Social.Comments.IntegrationEvents.Handlers.Posts;
 
 [Transactional(typeof(CommentsDbContext))]
 public sealed class PostDeletedHandler(

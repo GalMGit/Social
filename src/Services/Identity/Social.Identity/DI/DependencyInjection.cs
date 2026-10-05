@@ -90,6 +90,9 @@ public static class DependencyInjection
 
             var db = scope.ServiceProvider
                 .GetRequiredService<IdentityDbContext>();
+            
+            var outbox = scope.ServiceProvider
+                .GetRequiredService<IDbContextOutbox<IdentityDbContext>>();
 
             var adminOptions = scope.ServiceProvider
                 .GetRequiredService<IOptions<AdminOptions>>();
@@ -97,7 +100,7 @@ public static class DependencyInjection
             await db.Database.MigrateAsync();
 
             await IdentitySeeder.SeedAsync(
-                db,
+                outbox,
                 adminOptions);
         }
     }

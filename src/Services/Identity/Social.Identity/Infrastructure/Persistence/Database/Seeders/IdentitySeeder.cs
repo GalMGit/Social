@@ -1,18 +1,23 @@
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Social.Contracts.Events.Identity;
 using Social.Identity.Domain;
 using Social.Identity.Infrastructure.Persistence.Database.Context;
 using Social.Shared.Names;
+using Wolverine.EntityFrameworkCore;
+using Wolverine.Persistence;
 
 namespace Social.Identity.Infrastructure.Persistence.Database.Seeders;
 
 public static class IdentitySeeder
 {
     public static async Task SeedAsync(
-        IdentityDbContext db,
+        IDbContextOutbox<IdentityDbContext> outbox,
         IOptions<AdminOptions> options,
         CancellationToken ct = default)
     {
+        var db = outbox.DbContext;
         var adminOptions = options.Value;
 
         var roleNames = new[]
@@ -40,21 +45,23 @@ public static class IdentitySeeder
             roles.Add(roleName, role);
         }
 
-        await db.SaveChangesAsync(ct);
-
         await SeedSuperAdminAsync(
-            db,
+            outbox,
             roles[RoleNames.SuperAdmin],
             adminOptions,
             ct);
+
+        await outbox.SaveChangesAndFlushMessagesAsync(ct);
     }
 
     private static async Task SeedSuperAdminAsync(
-        IdentityDbContext db,
+        IDbContextOutbox<IdentityDbContext> outbox,
         Role superAdminRole,
         AdminOptions options,
         CancellationToken ct)
     {
+        var db = outbox.DbContext;
+
         var adminExists = await db.Users
             .AnyAsync(x => x.Email == options.Email, ct);
 
@@ -64,15 +71,18 @@ public static class IdentitySeeder
         var admin = new User
         {
             Id = Guid.CreateVersion7(),
-            Username = options.Username,
             Email = options.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(options.Password),
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(
+                options.Password),
             CreatedAt = DateTime.UtcNow,
             Roles = [superAdminRole]
         };
 
         db.Users.Add(admin);
 
-        await db.SaveChangesAsync(ct);
+        await outbox.PublishAsync(
+            new UserCreatedEvent(
+                admin.Id,
+                options.Username));
     }
 }

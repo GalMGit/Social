@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Social.Contracts.Events.Users;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 using Social.Users.Application.Media;
@@ -58,6 +59,9 @@ public static class DependencyInjection
                     q.AutoDelete = false;
                     q.IsExclusive = false;
                 });
+            
+            options.PublishMessage<UserProfileCreatedEvent>()
+                .ToRabbitExchange("users-events");
         }
     }
 

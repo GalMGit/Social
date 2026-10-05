@@ -23,6 +23,11 @@ builder.Host.UseWolverine(opt =>
         {
             exchange.ExchangeType = ExchangeType.Fanout;
             exchange.BindQueue("social-comments");
+        })
+        .DeclareExchange("users-events", exchange =>
+        {
+            exchange.ExchangeType = ExchangeType.Fanout;
+            exchange.BindQueue("social-comments");
         });
 
     opt.Policies.DisableConventionalLocalRouting();

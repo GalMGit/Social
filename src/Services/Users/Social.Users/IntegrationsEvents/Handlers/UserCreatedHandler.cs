@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Social.Contracts.Events.Identity;
+using Social.Contracts.Events.Users;
 using Social.Users.Domain;
 using Social.Users.Infrastructure.Persistence.Context;
+using Wolverine;
 using Wolverine.Attributes;
 
 namespace Social.Users.IntegrationsEvents.Handlers;
@@ -9,6 +11,7 @@ namespace Social.Users.IntegrationsEvents.Handlers;
 [Transactional(typeof(UsersDbContext))]
 public sealed class UserCreatedHandler(
     UsersDbContext context,
+    IMessageBus bus,
     ILogger<UserCreatedHandler> logger)
 {
     public async Task Handle(
@@ -36,6 +39,11 @@ public sealed class UserCreatedHandler(
 
         await context.Profiles.AddAsync(
             profile, ct);
+        
+        await bus.PublishAsync(
+            new UserProfileCreatedEvent(
+                profile.Id,
+                profile.Username));
 
         logger.LogInformation(
             "Profile created for user {UserId}",

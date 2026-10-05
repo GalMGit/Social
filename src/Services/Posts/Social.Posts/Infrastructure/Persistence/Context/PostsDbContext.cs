@@ -10,6 +10,7 @@ public sealed class PostsDbContext : DbContext
         : base(options) { }
 
     public DbSet<Post> Posts => Set<Post>();
+    public DbSet<KnownUser> KnownUsers => Set<KnownUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -40,8 +40,6 @@ builder.Services.AddIdentity(builder.Configuration);
 
 var app = builder.Build();
 
-await app.Services.InitializeIdentityAsync();
-
 var api = app.MapGroup("/api/v1");
 app.MapEndpoints(api);
 
@@ -61,4 +59,8 @@ app.MapScalarApiReference("/docs",options =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-await app.RunAsync();
+await app.StartAsync();
+
+await app.Services.InitializeIdentityAsync();
+
+await app.WaitForShutdownAsync();

@@ -11,6 +11,7 @@ public sealed class CommentsDbContext : DbContext
 
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<KnownPost> KnownPosts => Set<KnownPost>();
+    public DbSet<KnownUser> KnownUsers => Set<KnownUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -54,7 +54,6 @@ public sealed class ConfirmEmailHandler(
         {
             Id = tempUser.Id,
             CreatedAt = tempUser.CreatedAt,
-            Username = tempUser.Username,
             Email = tempUser.Email,
             PasswordHash = tempUser.PasswordHash,
             Roles = [userRole]
@@ -69,8 +68,8 @@ public sealed class ConfirmEmailHandler(
         await bus.PublishAsync(
             new UserCreatedEvent(
                 user.Id,
-                user.Username));
-
+                tempUser.Username));
+        
         return Result.Success();
     }
 }

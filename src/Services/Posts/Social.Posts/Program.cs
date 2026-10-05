@@ -18,6 +18,13 @@ builder.Host.UseWolverine(opt =>
             builder.Configuration.GetConnectionString(
                 "RabbitMq")!)
         .AutoProvision();
+    
+    opt.ConfigureRabbitMq()
+        .DeclareExchange("users-events", exchange =>
+        {
+            exchange.ExchangeType = ExchangeType.Fanout;
+            exchange.BindQueue("social-posts");
+        });
 
     opt.Policies.DisableConventionalLocalRouting();
 
@@ -29,7 +36,15 @@ builder.Host.UseWolverine(opt =>
         builder.Configuration.GetConnectionString(
             "PostsDb")!,
         role: MessageStoreRole.Main);
-
+    
+    opt.ListenToRabbitQueue("social-posts")
+        .ConfigureQueue(q =>
+        {
+            q.IsDurable = true;
+            q.AutoDelete = false;
+            q.IsExclusive = false;
+        });
+    
     opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
     opt.AddPostsMessaging(builder.Configuration);
 });
