@@ -99,6 +99,20 @@
       ]
     },
     {
+      "UpstreamPathTemplate": "/openapi/media/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5196
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/api/v1/users/{userId}/profile",
       "UpstreamHttpMethod": [
         "Get"
@@ -124,7 +138,10 @@
           "Host": "localhost",
           "Port": 5126
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/v1/comments",
@@ -183,21 +200,10 @@
           "Host": "localhost",
           "Port": 5196
         }
-      ]
-    },
-    {
-      "UpstreamPathTemplate": "/openapi/media/v1.json",
-      "UpstreamHttpMethod": [
-        "Get"
       ],
-      "DownstreamPathTemplate": "/openapi/v1.json",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5196
-        }
-      ]
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
     },
     {
       "UpstreamPathTemplate": "/api/v1/posts",

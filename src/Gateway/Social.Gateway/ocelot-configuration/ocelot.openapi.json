@@ -41,6 +41,15 @@
       "DownstreamHostAndPorts": [
         {"Host": "localhost", "Port": 5146}
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/media/v1.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5196 }
+      ]
     }
   ]
 }

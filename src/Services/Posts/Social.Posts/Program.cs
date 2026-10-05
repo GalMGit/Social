@@ -1,5 +1,5 @@
 using JasperFx.CodeGeneration.Model;
-using Microsoft.OpenApi;
+
 using Scalar.AspNetCore;
 using Social.Posts.DI;
 using Social.Shared.Endpoint;
