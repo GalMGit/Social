@@ -20,6 +20,9 @@
   <Folder Name="/src/Services/Email/">
     <Project Path="src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Feed/">
+    <Project Path="src/Services/Feed/Social.Feed/Social.Feed.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Identity/">
     <Project Path="src/Services/Identity/Social.Identity/Social.Identity.csproj" />
   </Folder>
