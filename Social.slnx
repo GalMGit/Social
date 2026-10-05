@@ -14,6 +14,9 @@
   <Folder Name="/src/Services/Comments/">
     <Project Path="src/Services/Comments/Social.Comments/Social.Comments.csproj" />
   </Folder>
+  <Folder Name="/src/Services/Communities/">
+    <Project Path="src/Services/Communities/Social.Communities/Social.Communities.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Email/">
     <Project Path="src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj" />
   </Folder>
