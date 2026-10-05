@@ -1,0 +1,37 @@
+﻿services:
+  social.emailworker:
+    image: social.emailworker
+    build:
+      context: .
+      dockerfile: src/Services/Email/Social.EmailWorker/Dockerfile
+
+  social.gateway:
+    image: social.gateway
+    build:
+      context: .
+      dockerfile: src/Gateway/Social.Gateway/Dockerfile
+
+  social.identity:
+    image: social.identity
+    build:
+      context: .
+      dockerfile: src/Services/Identity/Social.Identity/Dockerfile
+
+  social.media:
+    image: social.media
+    build:
+      context: .
+      dockerfile: src/Services/Media/Social.Media/Dockerfile
+
+  social.posts:
+    image: social.posts
+    build:
+      context: .
+      dockerfile: src/Services/Posts/Social.Posts/Dockerfile
+
+  social.users:
+    image: social.users
+    build:
+      context: .
+      dockerfile: src/Services/Users/Social.Users/Dockerfile
+

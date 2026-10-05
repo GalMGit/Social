@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="compose.yaml" />
+  </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/BuildingBlocks/">
     <Project Path="src/BuildingBlocks/Social.Contracts/Social.Contracts.csproj" />
@@ -8,6 +11,9 @@
     <Project Path="src/Gateway/Social.Gateway/Social.Gateway.csproj" />
   </Folder>
   <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Comments/">
+    <Project Path="src/Services/Comments/Social.Comments/Social.Comments.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Email/">
     <Project Path="src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj" />
   </Folder>
