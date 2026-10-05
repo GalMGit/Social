@@ -2,7 +2,8 @@ using FluentValidation;
 
 namespace Social.Posts.Features.CreatePost;
 
-public sealed class CreatePostValidator : AbstractValidator<CreatePostRequest>
+public sealed class CreatePostValidator 
+    : AbstractValidator<CreatePostRequest>
 {
     public CreatePostValidator()
     {

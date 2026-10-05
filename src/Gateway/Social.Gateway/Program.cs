@@ -46,8 +46,11 @@ app.MapScalarApiReference("/docs", options =>
         .AddDocument(
             "users",
             "Users API",
-            "/openapi/users/v1.json");
-
+            "/openapi/users/v1.json")
+        .AddDocument(
+            "comments",
+            "Comments API",
+            "/openapi/comments/v1.json");
 });
 
 app.UseWhen(

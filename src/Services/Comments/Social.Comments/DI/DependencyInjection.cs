@@ -45,6 +45,7 @@ public static class DependencyInjection
         {
             options.Discovery.IncludeAssembly(
                 Assembly.GetExecutingAssembly());
+            
         }
     }
 

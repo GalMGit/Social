@@ -30,6 +30,17 @@
       "DownstreamHostAndPorts": [
         {"Host": "localhost", "Port": 5126}
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/comments/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5146}
+      ]
     }
   ]
 }

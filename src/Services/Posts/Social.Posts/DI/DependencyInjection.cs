@@ -57,7 +57,7 @@ public static class DependencyInjection
                 Assembly.GetExecutingAssembly());
 
             options.PublishMessage<PostCreatedEvent>()
-                .ToRabbitQueue("social-posts");
+                .ToRabbitExchange("posts-events");
         }
     }
 

@@ -18,9 +18,17 @@ builder.Host.UseWolverine(opt =>
                 "RabbitMq")!)
         .AutoProvision();
 
+    opt.ConfigureRabbitMq()
+        .DeclareExchange("posts-events", exchange =>
+        {
+            exchange.ExchangeType = ExchangeType.Fanout;
+            exchange.BindQueue("social-comments");
+        });
+
     opt.Policies.DisableConventionalLocalRouting();
 
     opt.UseEntityFrameworkCoreTransactions();
+
     opt.Policies.UseDurableOutboxOnAllSendingEndpoints();
     opt.Policies.UseDurableInboxOnAllListeners();
 
@@ -29,7 +37,17 @@ builder.Host.UseWolverine(opt =>
             "CommentsDb")!,
         role: MessageStoreRole.Main);
 
-    opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
+    opt.ListenToRabbitQueue("social-comments")
+        .ConfigureQueue(q =>
+        {
+            q.IsDurable = true;
+            q.AutoDelete = false;
+            q.IsExclusive = false;
+        });
+
+    opt.ServiceLocationPolicy =
+        ServiceLocationPolicy.AlwaysAllowed;
+
     opt.AddCommentsMessaging(builder.Configuration);
 });
 
