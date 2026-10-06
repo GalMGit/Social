@@ -5,4 +5,5 @@ public sealed record CommentResponse(
     Guid PostId,
     string Text,
     Guid AuthorId, 
+    string? AuthorName,
     DateTime CreatedAt);

@@ -81,6 +81,9 @@ namespace Social.Comments.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("KnownUsers", (string)null);
                 });
 

@@ -13,6 +13,9 @@ public sealed class KnownUserConfiguration
         
         builder.HasKey(x => x.UserId);
         
+        builder.HasIndex(x => x.UserId)
+            .IsUnique();
+        
         builder.Property(x => x.Username)
             .IsRequired();
     }

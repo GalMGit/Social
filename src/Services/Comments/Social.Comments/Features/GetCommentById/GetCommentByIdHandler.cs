@@ -16,14 +16,24 @@ public sealed class GetCommentByIdHandler(
     {
         var comment = await context.Comments
             .AsNoTracking()
-            .SingleOrDefaultAsync(x => 
-                x.Id == query.Id, ct);
+            .Where(x => x.Id == query.Id)
+            .Select(x => new CommentResponse(
+                x.Id,
+                x.PostId,
+                x.Text,
+                x.AuthorId,
+                context.KnownUsers
+                    .Where(u => u.UserId == x.AuthorId)
+                    .Select(u => u.Username)
+                    .FirstOrDefault() ?? "Unknown",
+                x.CreatedAt))
+            .SingleOrDefaultAsync(ct);
         
         if(comment is null)
             return Result<CommentResponse>.Failure(
                 CommentErrors.NotFound);
 
         return Result<CommentResponse>.Success(
-            comment.ToCommentResponse());
+            comment);
     }
 }
