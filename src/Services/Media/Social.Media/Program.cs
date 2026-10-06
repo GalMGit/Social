@@ -1,5 +1,4 @@
 using Social.Media.DI;
-using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 using Social.Shared.OpenApi;
 

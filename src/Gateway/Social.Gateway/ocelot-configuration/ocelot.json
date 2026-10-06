@@ -235,6 +235,20 @@
           "Port": 5009
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5009
+        }
+      ]
     }
   ],
   "DynamicRoutes": [],

@@ -1,23 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using Social.Posts.Application.DTOs;
-using Social.Posts.Application.Errors;
 using Social.Posts.Application.Media;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.ResultType;
 
-namespace Social.Posts.Features.GetPostById;
+namespace Social.Posts.Features.GetPosts;
 
-public sealed class GetPostByIdHandler(
+public sealed class GetPostsHandler(
     PostsDbContext context,
     IMediaUrlBuilder urlBuilder)
 {
-    public async Task<Result<PostResponse>> Handle(
-        GetPostByIdQuery query, 
+    public async Task<Result<List<PostResponse>>> Handle(
+        GetPostsQuery query,
         CancellationToken ct)
     {
-        var post = await context.Posts
+        var posts = await context.Posts
             .AsNoTracking()
-            .Where(x => x.Id == query.PostId)
+            .OrderByDescending(x => x.CreatedAt)
             .Select(x => new PostResponse(
                 x.Id,
                 x.AuthorId,
@@ -30,14 +29,9 @@ public sealed class GetPostByIdHandler(
                     .Select(u => u.Username)
                     .FirstOrDefault(),
                 x.CreatedAt))
-            .SingleOrDefaultAsync(x => 
-                x.Id == query.PostId, ct);
+            .ToListAsync(ct);
         
-        if(post is null)
-            return Result<PostResponse>.Failure(
-                PostErrors.NotFound);
-
-        return Result<PostResponse>.Success(
-            post);
+        return Result<List<PostResponse>>.Success(
+            posts);
     }
 }
