@@ -1,0 +1,55 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/openapi/identity/v1.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5001}
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/posts/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5003}
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/users/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5002}
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/comments/v1.json",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {"Host": "localhost", "Port": 5005}
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/openapi/media/v1.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/openapi/v1.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5004 }
+      ]
+    }
+  ]
+}

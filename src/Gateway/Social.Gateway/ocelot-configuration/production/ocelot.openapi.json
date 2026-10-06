@@ -6,7 +6,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "localhost", "Port": 5241}
+        {"Host": "identity", "Port": 8080}
       ]
     },
     {
@@ -17,7 +17,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "localhost", "Port": 5009}
+        {"Host": "posts", "Port": 8080}
       ]
     },
     {
@@ -28,7 +28,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "localhost", "Port": 5126}
+        {"Host": "users", "Port": 8080}
       ]
     },
     {
@@ -39,7 +39,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "localhost", "Port": 5146}
+        {"Host": "comments", "Port": 8080}
       ]
     },
     {
@@ -48,7 +48,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5196 }
+        { "Host": "media", "Port": 8080 }
       ]
     }
   ]

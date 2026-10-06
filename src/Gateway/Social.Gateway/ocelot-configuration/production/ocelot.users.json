@@ -1,0 +1,25 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/v1/users/{userId}/profile",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "users", "Port": 8080  } 
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/users/me/avatar",
+      "UpstreamHttpMethod": [ "Patch" ],
+      "DownstreamPathTemplate": "/api/v1/users/me/avatar",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "users", "Port": 8080 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+  ]
+}

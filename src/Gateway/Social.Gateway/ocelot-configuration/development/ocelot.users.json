@@ -6,8 +6,8 @@
       "DownstreamPathTemplate": "/api/v1/users/{userId}/profile",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5126 }
-      ]
+        { "Host": "localhost", "Port": 5002  } 
+         ]
     },
     {
       "UpstreamPathTemplate": "/api/v1/users/me/avatar",
@@ -15,7 +15,7 @@
       "DownstreamPathTemplate": "/api/v1/users/me/avatar",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5126 }
+        { "Host": "localhost", "Port": 5002 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"

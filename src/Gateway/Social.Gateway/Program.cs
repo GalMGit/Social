@@ -8,10 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuth(builder.Configuration);
 
+var environment = builder.Environment.EnvironmentName;
+
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddOcelot(
-        "ocelot-configuration", 
+        $"ocelot-configuration/{environment.ToLowerInvariant()}",
         builder.Environment);
 
 builder.Services.AddOcelot(builder.Configuration);

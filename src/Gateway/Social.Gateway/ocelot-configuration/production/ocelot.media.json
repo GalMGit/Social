@@ -6,7 +6,7 @@
       "DownstreamPathTemplate": "/api/v1/media",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5196 }
+        { "Host": "media", "Port": 8080 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"

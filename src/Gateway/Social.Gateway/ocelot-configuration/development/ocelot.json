@@ -10,7 +10,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5241
+          "Port": 5001
         }
       ]
     },
@@ -24,7 +24,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5241
+          "Port": 5001
         }
       ]
     },
@@ -38,7 +38,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5241
+          "Port": 5001
         }
       ]
     },
@@ -52,7 +52,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5241
+          "Port": 5001
         }
       ]
     },
@@ -66,7 +66,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5009
+          "Port": 5003
         }
       ]
     },
@@ -80,7 +80,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5126
+          "Port": 5002
         }
       ]
     },
@@ -94,7 +94,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5146
+          "Port": 5005
         }
       ]
     },
@@ -108,7 +108,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5196
+          "Port": 5004
         }
       ]
     },
@@ -122,7 +122,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5126
+          "Port": 5002
         }
       ]
     },
@@ -136,7 +136,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5126
+          "Port": 5002
         }
       ],
       "AuthenticationOptions": {
@@ -153,7 +153,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5146
+          "Port": 5005
         }
       ],
       "AuthenticationOptions": {
@@ -170,7 +170,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5146
+          "Port": 5005
         }
       ]
     },
@@ -184,7 +184,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5146
+          "Port": 5005
         }
       ]
     },
@@ -198,7 +198,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5196
+          "Port": 5004
         }
       ],
       "AuthenticationOptions": {
@@ -215,7 +215,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5009
+          "Port": 5003
         }
       ],
       "AuthenticationOptions": {
@@ -232,7 +232,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5009
+          "Port": 5003
         }
       ]
     },
@@ -246,7 +246,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5009
+          "Port": 5003
         }
       ]
     }
@@ -254,6 +254,62 @@
   "DynamicRoutes": [],
   "Aggregates": [],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5283"
+    "AuthenticationOptions": {
+      "RouteKeys": null,
+      "AllowedScopes": null,
+      "AllowAnonymous": null,
+      "AuthenticationProviderKey": null,
+      "AuthenticationProviderKeys": null,
+      "HasScheme": false,
+      "HasScope": false
+    },
+    "BaseUrl": null,
+    "CacheOptions": null,
+    "DownstreamHeaderTransform": {},
+    "DownstreamHttpVersion": null,
+    "DownstreamHttpVersionPolicy": null,
+    "DownstreamScheme": null,
+    "HttpHandlerOptions": {
+      "RouteKeys": null,
+      "AllowAutoRedirect": null,
+      "MaxConnectionsPerServer": null,
+      "PooledConnectionLifetimeSeconds": null,
+      "UseCookieContainer": null,
+      "UseProxy": null,
+      "UseTracing": null
+    },
+    "LoadBalancerOptions": null,
+    "Metadata": null,
+    "MetadataOptions": {
+      "CurrentCulture": "en-US",
+      "NumberStyle": "Any",
+      "Separators": [
+        ","
+      ],
+      "StringSplitOption": "None",
+      "TrimChars": [
+        " "
+      ]
+    },
+    "QoSOptions": null,
+    "RateLimitOptions": null,
+    "RequestIdKey": null,
+    "SecurityOptions": {
+      "IPAllowedList": [],
+      "IPBlockedList": [],
+      "ExcludeAllowedFromBlocked": false
+    },
+    "ServiceDiscoveryProvider": {
+      "Scheme": null,
+      "Host": null,
+      "Port": 0,
+      "Type": null,
+      "Token": null,
+      "ConfigurationKey": null,
+      "PollingInterval": 0,
+      "Namespace": null
+    },
+    "Timeout": null,
+    "UpstreamHeaderTransform": {}
   }
 }

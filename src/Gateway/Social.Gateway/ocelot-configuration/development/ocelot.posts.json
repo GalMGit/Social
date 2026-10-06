@@ -1,0 +1,34 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamHttpMethod": ["Post"],
+      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5003 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/posts/{postId}",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/v1/posts/{postId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5003 }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/api/v1/posts",
+      "UpstreamHttpMethod": ["Get"],
+      "DownstreamPathTemplate": "/api/v1/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5003 }
+      ]
+    }
+  ]
+}
