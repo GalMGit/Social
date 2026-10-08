@@ -6,7 +6,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "identity", "Port": 8080}
+        {"Host": "social.identity", "Port": 8080}
       ]
     },
     {
@@ -17,7 +17,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "posts", "Port": 8080}
+        {"Host": "social.posts", "Port": 8080}
       ]
     },
     {
@@ -28,7 +28,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "users", "Port": 8080}
+        {"Host": "social.users", "Port": 8080}
       ]
     },
     {
@@ -39,7 +39,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {"Host": "comments", "Port": 8080}
+        {"Host": "social.comments", "Port": 8080}
       ]
     },
     {
@@ -48,7 +48,7 @@
       "DownstreamPathTemplate": "/openapi/v1.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "media", "Port": 8080 }
+        { "Host": "social.media", "Port": 8080 }
       ]
     }
   ]

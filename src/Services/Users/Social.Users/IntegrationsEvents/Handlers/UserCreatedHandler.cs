@@ -20,13 +20,13 @@ public sealed class UserCreatedHandler(
     {
         var exists = await context.Profiles
             .AnyAsync(x => 
-                x.Id == @event.UserId, ct);
+                x.Username == @event.Username, ct);
 
         if (exists)
         {
             logger.LogInformation(
-                "Profile for user {UserId} already exists, skipping",
-                @event.UserId);
+                "Profile for user {Username} already exists, skipping",
+                @event.Username);
             return;
         }
 

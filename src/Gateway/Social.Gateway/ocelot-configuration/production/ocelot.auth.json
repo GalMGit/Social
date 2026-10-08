@@ -6,7 +6,7 @@
       "DownstreamPathTemplate": "/api/v1/auth/register",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "identity", "Port": 8080 }
+        { "Host": "social.identity", "Port": 8080 }
       ]
     },
     {
@@ -15,7 +15,7 @@
       "DownstreamPathTemplate": "/api/v1/auth/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "identity", "Port": 8080 }
+        { "Host": "social.identity", "Port": 8080 }
       ]
     },
     {
@@ -24,7 +24,7 @@
       "DownstreamPathTemplate": "/api/v1/auth/email/confirm",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "identity", "Port": 8080 }
+        { "Host": "social.identity", "Port": 8080 }
       ]
     }
   ]

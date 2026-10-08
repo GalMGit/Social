@@ -13,6 +13,9 @@ using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
+await DatabaseBootstrapper.EnsureDatabaseExistsAsync(
+    builder.Configuration.GetConnectionString("IdentityDb")!);
+
 builder.Host.UseWolverine(opt =>
 {
     opt.UseRabbitMq(
@@ -40,6 +43,8 @@ builder.Services.AddIdentity(builder.Configuration);
 
 var app = builder.Build();
 
+await app.Services.MigrateIdentityAsync();
+
 var api = app.MapGroup("/api/v1");
 app.MapEndpoints(api);
 
@@ -61,6 +66,6 @@ app.UseAuthorization();
 
 await app.StartAsync();
 
-await app.Services.InitializeIdentityAsync();
+await app.Services.SeedIdentityAsync();
 
 await app.WaitForShutdownAsync();

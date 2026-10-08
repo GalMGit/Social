@@ -6,7 +6,7 @@
       "DownstreamPathTemplate": "/api/v1/users/{userId}/profile",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "users", "Port": 8080  } 
+        { "Host": "social.users", "Port": 8080  } 
       ]
     },
     {
@@ -15,7 +15,7 @@
       "DownstreamPathTemplate": "/api/v1/users/me/avatar",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "users", "Port": 8080 }
+        { "Host": "social.users", "Port": 8080 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer"

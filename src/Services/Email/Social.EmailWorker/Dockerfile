@@ -5,6 +5,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ["Directory.Packages.props", "."]
 COPY ["src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj", "src/Services/Email/Social.EmailWorker/"]
 COPY ["src/BuildingBlocks/Social.Contracts/Social.Contracts.csproj", "src/BuildingBlocks/Social.Contracts/"]
 RUN dotnet restore "src/Services/Email/Social.EmailWorker/Social.EmailWorker.csproj"
