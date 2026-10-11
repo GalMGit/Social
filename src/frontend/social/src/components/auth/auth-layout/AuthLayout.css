@@ -1,0 +1,40 @@
+.auth-container {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    background: #0d0d0d;
+}
+
+.auth-place {
+    width: 100%;
+    max-width: 460px;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #242424;
+    border-radius: 12px;
+
+    background: #111;
+}
+
+@media (max-width: 520px) {
+    .auth-container {
+        padding: 16px;
+    }
+
+    .auth-place {
+        padding: 28px 22px;
+
+        border: none;
+        background: transparent;
+    }
+}

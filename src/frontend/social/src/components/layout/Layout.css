@@ -1,0 +1,157 @@
+.layout {
+    min-height: 100vh;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+
+    border-bottom: 1px solid rgba(39, 39, 42, 0.8);
+
+    background: rgba(9, 9, 11, 0.82);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.header-container {
+    width: min(1400px, calc(100% - 48px));
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 auto;
+}
+
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: #fafafa;
+}
+
+.logo-mark {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #3f3f46;
+    border-radius: 9px;
+
+    background: #18181b;
+
+    color: #f4f4f5;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+            border-color 180ms ease,
+            background 180ms ease;
+}
+
+.logo:hover .logo-mark {
+    border-color: #52525b;
+    background: #27272a;
+}
+
+.logo-text {
+    color: #f4f4f5;
+
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* NAVIGATION */
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-item {
+    padding: 8px 13px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #a1a1aa;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+            color 180ms ease,
+            border-color 180ms ease,
+            background 180ms ease;
+}
+
+.nav-item:hover {
+    border-color: #27272a;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    color: #f4f4f5;
+}
+
+.nav-item-primary {
+    border-color: #3f3f46;
+
+    background: #f4f4f5;
+
+    color: #09090b;
+}
+
+.nav-item-primary:hover {
+    border-color: #fafafa;
+
+    background: #ffffff;
+
+    color: #09090b;
+}
+
+.nav-item-danger:hover {
+    color: #f87171;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+    .header-container {
+        width: min(100% - 32px, 600px);
+        min-height: 64px;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .nav-menu {
+        gap: 2px;
+    }
+
+    .nav-item {
+        padding: 7px 9px;
+        font-size: 12px;
+    }
+}

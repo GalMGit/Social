@@ -10,12 +10,26 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
         <PackageReference Include="Scalar.AspNetCore"/>
-        <PackageReference Include="Ocelot" />
+        <PackageReference Include="Yarp.ReverseProxy" />
     </ItemGroup>
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Properties\ocelot-configuration\ocelot.global.json" />
       <_ContentIncludedByDefault Remove="Properties\ocelot-configuration\ocelot.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.auth.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.comments.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.media.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.openapi.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.posts.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\development\ocelot.users.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.auth.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.comments.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.media.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.openapi.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.posts.json" />
+      <_ContentIncludedByDefault Remove="ocelot-configuration\production\ocelot.users.json" />
     </ItemGroup>
 
     <ItemGroup>

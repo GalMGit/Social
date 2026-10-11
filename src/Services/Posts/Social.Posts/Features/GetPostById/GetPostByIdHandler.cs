@@ -30,8 +30,7 @@ public sealed class GetPostByIdHandler(
                     .Select(u => u.Username)
                     .FirstOrDefault(),
                 x.CreatedAt))
-            .SingleOrDefaultAsync(x => 
-                x.Id == query.PostId, ct);
+            .SingleOrDefaultAsync(ct);
         
         if(post is null)
             return Result<PostResponse>.Failure(

@@ -1,24 +1,47 @@
-using Microsoft.OpenApi;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
 using Scalar.AspNetCore;
 using Social.Shared.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile(
+    "yarp.json",
+    optional: false,
+    reloadOnChange: true);
+
 builder.Services.AddAuth(builder.Configuration);
 
-var environment = builder.Environment.EnvironmentName;
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Authenticated", policy =>
+    {
+        policy
+            .AddAuthenticationSchemes("Bearer")
+            .RequireAuthenticatedUser();
+    });
+});
 
-builder.Configuration
-    .SetBasePath(builder.Environment.ContentRootPath)
-    .AddOcelot(
-        $"ocelot-configuration/{environment.ToLowerInvariant()}",
-        builder.Environment);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendClient", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
-builder.Services.AddOcelot(builder.Configuration);
+builder.Services
+    .AddReverseProxy()
+    .LoadFromConfig(
+        builder.Configuration.GetSection("ReverseProxy"));
 
 var app = builder.Build();
+
+app.UseRouting();
+
+app.UseCors("FrontendClient");
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -33,30 +56,18 @@ app.MapScalarApiReference("/docs", options =>
             auth.Token = string.Empty;
             auth.Description = "Bearer Token";
         })
-        .AddDocument(
-            "identity",
-            "Identity API",
+        .AddDocument("identity", "Identity API",
             "/openapi/identity/v1.json")
-        .AddDocument(
-            "posts",
-            "Posts API",
+        .AddDocument("posts", "Posts API",
             "/openapi/posts/v1.json")
-        .AddDocument(
-            "media",
-            "Media API",
+        .AddDocument("media", "Media API",
             "/openapi/media/v1.json")
-        .AddDocument(
-            "users",
-            "Users API",
+        .AddDocument("users", "Users API",
             "/openapi/users/v1.json")
-        .AddDocument(
-            "comments",
-            "Comments API",
+        .AddDocument("comments", "Comments API",
             "/openapi/comments/v1.json");
 });
 
-app.UseWhen(
-    ctx => !ctx.Request.Path.StartsWithSegments("/docs"),
-    branch => branch.UseOcelot());
+app.MapReverseProxy();
 
 await app.RunAsync();
