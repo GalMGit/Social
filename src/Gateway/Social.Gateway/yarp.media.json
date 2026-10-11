@@ -1,0 +1,23 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "media-create": {
+        "ClusterId": "media",
+        "AuthorizationPolicy": "Authenticated",
+        "Match": {
+          "Path": "/api/v1/media",
+          "Methods": ["POST"]
+        }
+      }
+    },
+    "Clusters": {
+      "media": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.media:8080/"
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,10 +3,31 @@ using Social.Shared.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile(
-    "yarp.json",
-    optional: false,
-    reloadOnChange: true);
+builder.Configuration
+    .AddJsonFile(
+        "yarp.auth.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
+        "yarp.posts.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
+        "yarp.users.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
+        "yarp.comments.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
+        "yarp.media.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
+        "yarp.openapi.json",
+        optional: false,
+        reloadOnChange: true);
 
 builder.Services.AddAuth(builder.Configuration);
 

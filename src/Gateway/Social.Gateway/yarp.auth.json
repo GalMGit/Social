@@ -1,0 +1,45 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "auth-register": {
+        "ClusterId": "identity",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/auth/register",
+          "Methods": [
+            "POST"
+          ]
+        }
+      },
+      "auth-login": {
+        "ClusterId": "identity",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/auth/login",
+          "Methods": [
+            "POST"
+          ]
+        }
+      },
+      "auth-confirm-email": {
+        "ClusterId": "identity",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/auth/email/confirm",
+          "Methods": [
+            "POST"
+          ]
+        }
+      }
+    },
+    "Clusters": {
+      "identity": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.identity:8080/"
+          }
+        }
+      }
+    }
+  }
+}

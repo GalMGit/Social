@@ -1,0 +1,31 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "user-profile": {
+        "ClusterId": "users",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/users/{userId}/profile",
+          "Methods": ["GET"]
+        }
+      },
+      "user-avatar": {
+        "ClusterId": "users",
+        "AuthorizationPolicy": "Authenticated",
+        "Match": {
+          "Path": "/api/v1/users/me/avatar",
+          "Methods": ["PATCH"]
+        }
+      }
+    },
+    "Clusters": {
+      "users": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.users:8080/"
+          }
+        }
+      }
+    }
+  }
+}

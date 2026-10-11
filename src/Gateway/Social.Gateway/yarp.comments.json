@@ -1,0 +1,39 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "comments-create": {
+        "ClusterId": "comments",
+        "AuthorizationPolicy": "Authenticated",
+        "Match": {
+          "Path": "/api/v1/comments",
+          "Methods": ["POST"]
+        }
+      },
+      "comments-by-post": {
+        "ClusterId": "comments",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/comments/post/{postId}",
+          "Methods": ["GET"]
+        }
+      },
+      "comment-by-id": {
+        "ClusterId": "comments",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/comments/{commentId}",
+          "Methods": ["GET"]
+        }
+      }
+    },
+    "Clusters": {
+      "comments": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.comments:8080/"
+          }
+        }
+      }
+    }
+  }
+}

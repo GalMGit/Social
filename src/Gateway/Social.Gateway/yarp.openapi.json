@@ -1,0 +1,65 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+    "openapi-identity": {
+      "ClusterId": "identity",
+      "AuthorizationPolicy": "anonymous",
+      "Match": {
+        "Path": "/openapi/identity/v1.json",
+        "Methods": [
+          "GET"
+        ]
+      },
+      "Transforms": [
+        {
+          "PathSet": "/openapi/v1.json"
+        }
+      ]
+    },
+      "openapi-posts": {
+        "ClusterId": "posts",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/openapi/posts/v1.json",
+          "Methods": ["GET"]
+        },
+        "Transforms": [
+          { "PathSet": "/openapi/v1.json" }
+        ]
+      },
+      "openapi-users": {
+        "ClusterId": "users",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/openapi/users/v1.json",
+          "Methods": ["GET"]
+        },
+        "Transforms": [
+          { "PathSet": "/openapi/v1.json" }
+        ]
+      },
+      "openapi-comments": {
+        "ClusterId": "comments",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/openapi/comments/v1.json",
+          "Methods": ["GET"]
+        },
+        "Transforms": [
+          { "PathSet": "/openapi/v1.json" }
+        ]
+      },
+      "openapi-media": {
+        "ClusterId": "media",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/openapi/media/v1.json",
+          "Methods": ["GET"]
+        },
+        "Transforms": [
+          { "PathSet": "/openapi/v1.json" }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "posts-create": {
+        "ClusterId": "posts",
+        "AuthorizationPolicy": "Authenticated",
+        "Match": {
+          "Path": "/api/v1/posts",
+          "Methods": ["POST"]
+        }
+      },
+      "post-by-id": {
+        "ClusterId": "posts",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/posts/{postId}",
+          "Methods": ["GET"]
+        }
+      },
+      "posts-list": {
+        "ClusterId": "posts",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/posts",
+          "Methods": ["GET"]
+        }
+      }
+    },
+    "Clusters": {
+      "posts": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.posts:8080/"
+          }
+        }
+      }
+    }
+  }
+}
