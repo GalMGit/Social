@@ -4,10 +4,7 @@ const baseUrl = 'http://localhost:5000/api/v1';
 
 export const apiService = axios.create({
     baseURL: baseUrl,
-    withCredentials: true,
-    headers: {
-        "Content-Type": "application/json",
-    }
+    withCredentials: true
 });
 
 apiService.interceptors.request.use(

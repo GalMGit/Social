@@ -36,7 +36,7 @@ export const PostCard = ({ post }: PostCardProps) => {
                 <span className="post-label">
                     POST
                 </span>
-                <h4>{post.title}Р</h4>
+                <h4>{post.title}</h4>
                 {/*<h3>*/}
                 {/*    {product.name}*/}
                 {/*</h3>*/}

@@ -28,7 +28,7 @@ export const Layout = () => {
                             <>
                                 <button
                                     className="nav-item"
-                                    onClick={() => navigate("/cart")}
+                                    onClick={() => navigate("/posts/create")}
                                 >
                                     Создать пост
                                 </button>

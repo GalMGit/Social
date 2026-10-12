@@ -34,9 +34,10 @@ public sealed class Endpoint : IEndpoint
                     ownerId,
                     ct);
 
-                return Results.Ok(new UploadMediaResponse(
-                    result.RelativePath,
-                    result.ThumbnailRelativePath));
+                return Results.Ok(
+                    new UploadMediaResponse(
+                        result.RelativePath,
+                        result.ThumbnailRelativePath));
             })
             .RequireAuthorization()
             .WithTags("Media")

@@ -6,6 +6,7 @@ import {LoginForm} from "../auth/login-form/LoginForm.tsx";
 import {RegisterForm} from "../auth/register-form/RegisterForm.tsx";
 import {Home} from "../home/Home.tsx";
 import {PostView} from "../posts/post-view/PostView.tsx";
+import PostCreate from "../posts/post-create/PostCreate.tsx";
 
 
 export const App = () => {
@@ -15,10 +16,8 @@ export const App = () => {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
 
-                    <Route
-                        path="posts/:postId"
-                        element={<PostView />}
-                    />
+                    <Route path="posts/:postId" element={<PostView />}/>
+                    <Route path="/posts/create" element={<PostCreate />} />
 
                     <Route>
                         <Route path={"/auth"} element={<AuthLayout/>}>

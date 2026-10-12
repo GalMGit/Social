@@ -4,6 +4,7 @@
       "auth-register": {
         "ClusterId": "identity",
         "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "auth-ip-limit",
         "Match": {
           "Path": "/api/v1/auth/register",
           "Methods": [
@@ -14,6 +15,7 @@
       "auth-login": {
         "ClusterId": "identity",
         "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "auth-ip-limit",
         "Match": {
           "Path": "/api/v1/auth/login",
           "Methods": [
@@ -24,6 +26,7 @@
       "auth-confirm-email": {
         "ClusterId": "identity",
         "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "auth-ip-limit",
         "Match": {
           "Path": "/api/v1/auth/email/confirm",
           "Methods": [
