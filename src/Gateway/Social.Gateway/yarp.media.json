@@ -4,6 +4,7 @@
       "media-create": {
         "ClusterId": "media",
         "AuthorizationPolicy": "Authenticated",
+        "RateLimiterPolicy": "media-create-ip-limit",
         "Match": {
           "Path": "/api/v1/media",
           "Methods": ["POST"]
