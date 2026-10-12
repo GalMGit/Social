@@ -8,8 +8,6 @@ using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
-using Wolverine.Persistence.Durability;
-using Wolverine.Postgresql;
 using Wolverine.RabbitMQ;
 
 namespace Social.Posts.DI;
@@ -29,16 +27,23 @@ public static class DependencyInjection
                         configuration.GetConnectionString(
                             "PostsDb"));
                 });
-            
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration =
+                    configuration.GetConnectionString("Redis");
+                options.InstanceName = "Social.Posts:";
+            });
+
             services.AddAuth(configuration);
 
             services.AddEndpoints(
                 Assembly.GetExecutingAssembly());
-            
+
             services.Configure<MediaOptions>(
                 configuration.GetSection(
                     nameof(MediaOptions)));
-            
+
             services.AddSingleton<IMediaUrlBuilder, MediaUrlBuilder>();
 
             services.AddValidatorsFromAssembly(
