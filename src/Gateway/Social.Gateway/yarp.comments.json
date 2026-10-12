@@ -4,6 +4,7 @@
       "comments-create": {
         "ClusterId": "comments",
         "AuthorizationPolicy": "Authenticated",
+        "RateLimiterPolicy": "comment-create-ip-limit",
         "Match": {
           "Path": "/api/v1/comments",
           "Methods": ["POST"]
