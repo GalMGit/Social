@@ -4,6 +4,7 @@
       "posts-create": {
         "ClusterId": "posts",
         "AuthorizationPolicy": "Authenticated",
+        "RateLimiterPolicy": "posts-create-ip-limit",
         "Match": {
           "Path": "/api/v1/posts",
           "Methods": ["POST"]
@@ -12,6 +13,7 @@
       "post-by-id": {
         "ClusterId": "posts",
         "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "post-by-id-ip-limit",
         "Match": {
           "Path": "/api/v1/posts/{postId}",
           "Methods": ["GET"]
@@ -20,6 +22,7 @@
       "posts-list": {
         "ClusterId": "posts",
         "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "posts-list-ip-limit",
         "Match": {
           "Path": "/api/v1/posts",
           "Methods": ["GET"]
