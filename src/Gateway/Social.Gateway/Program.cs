@@ -210,6 +210,27 @@ app.MapScalarApiReference("/docs", options =>
             "/openapi/communities/v1.json");
 });
 
-app.MapReverseProxy();
+app.MapReverseProxy(proxyPipeline =>
+{
+    proxyPipeline.Use(async (context, next) =>
+    {
+        await next();
+
+        var errorFeature = context.Features
+            .Get<Yarp.ReverseProxy.Forwarder.IForwarderErrorFeature>();
+
+        if (errorFeature is not null)
+        {
+            context.Response.Clear();
+            context.Response.StatusCode =
+                StatusCodes.Status503ServiceUnavailable;
+
+            app.Logger.LogWarning(
+                "Upstream unavailable: {Path}; error: {Error}",
+                context.Request.Path,
+                errorFeature.Error);
+        }
+    });
+});
 
 await app.RunAsync();
