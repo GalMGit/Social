@@ -59,6 +59,17 @@
         "Transforms": [
           { "PathSet": "/openapi/v1.json" }
         ]
+      },
+      "openapi-communities": {
+        "ClusterId": "communities",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/openapi/communities/v1.json",
+          "Methods": ["GET"]
+        },
+        "Transforms": [
+          { "PathSet": "/openapi/v1.json" }
+        ]
       }
     }
   }

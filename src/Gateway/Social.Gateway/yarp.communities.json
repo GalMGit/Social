@@ -1,0 +1,42 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "communities-create": {
+        "ClusterId": "communities",
+        "AuthorizationPolicy": "Authenticated",
+        "RateLimiterPolicy": "communities-create-ip-limit",
+        "Match": {
+          "Path": "/api/v1/communities",
+          "Methods": ["POST"]
+        }
+      },
+      "community-by-id": {
+        "ClusterId": "communities",
+        "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "community-by-id-ip-limit",
+        "Match": {
+          "Path": "/api/v1/communities/{communityId}",
+          "Methods": ["GET"]
+        }
+      },
+      "communities-list": {
+        "ClusterId": "communities",
+        "AuthorizationPolicy": "anonymous",
+        "RateLimiterPolicy": "communities-list-ip-limit",
+        "Match": {
+          "Path": "/api/v1/communities",
+          "Methods": ["GET"]
+        }
+      }
+    },
+    "Clusters": {
+      "communities": {
+        "Destinations": {
+          "destination1": {
+            "Address": "http://social.communities:8080/"
+          }
+        }
+      }
+    }
+  }
+}

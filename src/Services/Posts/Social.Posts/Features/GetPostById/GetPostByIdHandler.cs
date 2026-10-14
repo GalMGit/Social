@@ -33,10 +33,8 @@ public sealed class GetPostByIdHandler(
                     cachedJson);
 
             if (cachedPost is not null)
-            {
                 return Result<PostResponse>.Success(
                     cachedPost);
-            }
         }
 
         var post = await context.Posts

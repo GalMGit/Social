@@ -26,6 +26,10 @@ builder.Configuration
         optional: false,
         reloadOnChange: true)
     .AddJsonFile(
+        "yarp.communities.json",
+        optional: false,
+        reloadOnChange: true)
+    .AddJsonFile(
         "yarp.openapi.json",
         optional: false,
         reloadOnChange: true);
@@ -110,6 +114,42 @@ builder.Services.AddRateLimiter(options =>
                 AutoReplenishment = true
             }));
     
+    options.AddPolicy("communities-create-ip-limit", context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            context.Connection.RemoteIpAddress?.ToString() 
+            ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            }));
+
+    options.AddPolicy("communities-list-ip-limit", context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            context.Connection.RemoteIpAddress?.ToString() 
+            ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            }));
+
+    options.AddPolicy("community-by-id-ip-limit", context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            context.Connection.RemoteIpAddress?.ToString() 
+            ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 120,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0,
+                AutoReplenishment = true
+            }));
+    
     options.AddPolicy("media-create-ip-limit", context =>
         RateLimitPartition.GetFixedWindowLimiter(
             context.Connection.RemoteIpAddress?.ToString() 
@@ -165,7 +205,9 @@ app.MapScalarApiReference("/docs", options =>
         .AddDocument("users", "Users API",
             "/openapi/users/v1.json")
         .AddDocument("comments", "Comments API",
-            "/openapi/comments/v1.json");
+            "/openapi/comments/v1.json")
+        .AddDocument("communities", "Communities API",
+            "/openapi/communities/v1.json");
 });
 
 app.MapReverseProxy();

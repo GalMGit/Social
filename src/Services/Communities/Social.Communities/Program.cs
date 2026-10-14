@@ -1,9 +1,78 @@
+using JasperFx.CodeGeneration.Model;
+using Scalar.AspNetCore;
+using Social.Communities.DI;
+using Social.Shared.Endpoint;
+using Social.Shared.OpenApi;
+using Wolverine;
+using Wolverine.EntityFrameworkCore;
+using Wolverine.Persistence.Durability;
+using Wolverine.Postgresql;
+using Wolverine.RabbitMQ;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+builder.Host.UseWolverine(opt =>
+{
+    opt.UseRabbitMq(
+            builder.Configuration.GetConnectionString(
+                "RabbitMq")!)
+        .AutoProvision();
+
+    // opt.ConfigureRabbitMq()
+    //     .DeclareExchange("users-events", exchange =>
+    //     {
+    //         exchange.ExchangeType = ExchangeType.Fanout;
+    //         exchange.BindQueue("social-posts");
+    //     });
+
+    opt.Policies.DisableConventionalLocalRouting();
+
+    opt.UseEntityFrameworkCoreTransactions();
+    opt.Policies.UseDurableOutboxOnAllSendingEndpoints();
+    opt.Policies.UseDurableInboxOnAllListeners();
+
+    opt.PersistMessagesWithPostgresql(
+        builder.Configuration.GetConnectionString(
+            "CommunitiesDb")!,
+        role: MessageStoreRole.Main);
+
+    // opt.ListenToRabbitQueue("social-posts")
+    //     .ConfigureQueue(q =>
+    //     {
+    //         q.IsDurable = true;
+    //         q.AutoDelete = false;
+    //         q.IsExclusive = false;
+    //     });
+
+    opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
+    opt.AddCommunitiesMessaging(builder.Configuration);
+});
+
+builder.Services.AddOpenApiWithBearer();
+
+builder.Services.AddCommunities(builder.Configuration);
 
 var app = builder.Build();
 
+await app.Services.InitializeCommunitiesAsync();
+
+var api = app.MapGroup("/api/v1");
+app.MapEndpoints(api);
+
 app.MapOpenApi();
+
+app.MapScalarApiReference("/docs", options =>
+{
+    options.WithTitle("Social API")
+        .AddPreferredSecuritySchemes("Bearer")
+        .AddHttpAuthentication("Bearer", auth =>
+        {
+            auth.Token = string.Empty;
+            auth.Description = "Bearer Token";
+        });
+});
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 await app.RunAsync();
