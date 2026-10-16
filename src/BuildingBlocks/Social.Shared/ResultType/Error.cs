@@ -40,4 +40,9 @@ public sealed record Error(
         string code,
         string message)
         => new(code, message, ErrorType.Forbidden);
+
+    public static Error ServiceUnavailable(
+        string code,
+        string message)
+        => new Error(code, message, ErrorType.ServiceUnavailable);
 }

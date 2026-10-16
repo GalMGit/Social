@@ -59,6 +59,15 @@ public static class ResultExtensions
                         error.Message
                     },
                     statusCode: StatusCodes.Status403Forbidden),
+            
+            ErrorType.ServiceUnavailable =>
+                Results.Json(
+                    new
+                    {
+                        error.Code,
+                        error.Message
+                    },
+                    statusCode: StatusCodes.Status503ServiceUnavailable),
 
             _ =>
                 Results.BadRequest(new

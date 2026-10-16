@@ -10,9 +10,7 @@ using Wolverine.Attributes;
 
 namespace Social.Posts.Features.CreatePost;
 
-[Transactional(typeof(PostsDbContext))]
 public sealed class CreatePostHandler(
-    PostsDbContext context,
     ICommunitiesClient client,
     IUserAccessToken userAccessToken,
     IMessageBus bus)
@@ -26,7 +24,7 @@ public sealed class CreatePostHandler(
         if (request.CommunityId is not null)
         {
             var token = userAccessToken.GetAccessToken();
-            
+
             var result = await client.CheckPostingPermissionAsync(
                 request.CommunityId.Value,
                 token,
@@ -34,35 +32,14 @@ public sealed class CreatePostHandler(
 
             if (result.IsFailure)
                 return Result<Guid>.Failure(result.Error!);
-            
+
             if (!result.Value.CanCreatePost)
-                return Result<Guid>.Failure(
-                    PostErrors.AccessDenied);
+                return Result<Guid>.Failure(PostErrors.AccessDenied);
         }
 
-        var post = new Post
-        {
-            Id = Guid.CreateVersion7(),
-            AuthorId = command.AuthorId,
-            Title = request.Title,
-            Content = request.Content,
-            ImagePath = command.Request.ImagePath,
-            CommunityId = request.CommunityId,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        await context.Posts.AddAsync(
-            post, ct);
-
-        await bus.PublishAsync(
-            new PostCreatedEvent(
-                post.Id,
-                post.AuthorId,
-                post.Title,
-                post.Content,
-                post.CommunityId));
-
-        return Result<Guid>.Success(
-            post.Id);
+        return await bus.InvokeAsync<Result<Guid>>(
+            new PersistPostCommand(
+                command.AuthorId, 
+                request), ct);
     }
 }

@@ -7,14 +7,14 @@ using Social.Shared.ResultType;
 
 namespace Social.Posts.Infrastructure.Clients.Communities;
 
-public sealed class CommunitiesClient(HttpClient httpClient)
-    : ICommunitiesClient
+public sealed class CommunitiesClient(
+    HttpClient httpClient,
+    ILogger<CommunitiesClient> logger) : ICommunitiesClient
 {
-    public async Task<Result<PostingPermissionResponse>>
-        CheckPostingPermissionAsync(
-            Guid communityId,
-            string accessToken,
-            CancellationToken ct)
+    public async Task<Result<PostingPermissionResponse>> CheckPostingPermissionAsync(
+        Guid communityId,
+        string accessToken,
+        CancellationToken ct)
     {
         using var request = new HttpRequestMessage(
             HttpMethod.Get,
@@ -23,36 +23,45 @@ public sealed class CommunitiesClient(HttpClient httpClient)
         request.Headers.Authorization =
             new AuthenticationHeaderValue("Bearer", accessToken);
 
-        using var response = await httpClient.SendAsync(request, ct);
+        HttpResponseMessage response;
 
-        if (response.StatusCode == HttpStatusCode.NotFound)
+        try
         {
-            var errorResponse =
-                await response.Content.ReadFromJsonAsync<ErrorResponse>(
-                    cancellationToken: ct);
-
-            if (errorResponse is null)
-            {
-                return Result<PostingPermissionResponse>.Failure(
-                    Error.NotFound(
-                        "community.not_found",
-                        "Сообщество не найден."));
-            }
+            response = await httpClient.SendAsync(request, ct);
+        }
+        catch (HttpRequestException) when (!ct.IsCancellationRequested)
+        {
+            logger.LogWarning(
+                "Сервис Communities недоступен. Не удалось проверить права на создание поста для сообщества {CommunityId}.",
+                communityId);
 
             return Result<PostingPermissionResponse>.Failure(
-                Error.NotFound(
-                    errorResponse.Code,
-                    errorResponse.Message));
+                Error.ServiceUnavailable(
+                    "community.service_unavailable",
+                    "Сервис сообществ временно недоступен."));
         }
 
-        response.EnsureSuccessStatusCode();
+        using (response)
+        {
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                var error = await response.Content
+                    .ReadFromJsonAsync<ErrorResponse>(cancellationToken: ct);
 
-        var permission =
-            await response.Content.ReadFromJsonAsync<PostingPermissionResponse>(
-                cancellationToken: ct)
-            ?? throw new InvalidOperationException(
-                "Communities Service returned an empty response.");
+                return Result<PostingPermissionResponse>.Failure(
+                    Error.NotFound(
+                        error?.Code ?? "community.not_found",
+                        error?.Message ?? "Сообщество не найдено."));
+            }
 
-        return Result<PostingPermissionResponse>.Success(permission);
+            response.EnsureSuccessStatusCode();
+
+            var permission = await response.Content
+                .ReadFromJsonAsync<PostingPermissionResponse>(cancellationToken: ct)
+                ?? throw new InvalidOperationException(
+                    "Communities Service returned an empty response.");
+
+            return Result<PostingPermissionResponse>.Success(permission);
+        }
     }
 }
