@@ -2,10 +2,12 @@ using System.Reflection;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Social.Communities.Infrastructure.Persistence.Context;
+using Social.Contracts.Events.Communities;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
+using Wolverine.RabbitMQ;
 
 namespace Social.Communities.DI;
 
@@ -51,6 +53,9 @@ public static class DependencyInjection
         {
             options.Discovery.IncludeAssembly(
                 Assembly.GetExecutingAssembly());
+            
+            options.PublishMessage<CommunityCreatedEvent>()
+                .ToRabbitExchange("communities-events");
         }
     }
 

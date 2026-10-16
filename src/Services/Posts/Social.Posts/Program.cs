@@ -23,8 +23,13 @@ builder.Host.UseWolverine(opt =>
         {
             exchange.ExchangeType = ExchangeType.Fanout;
             exchange.BindQueue("social-posts");
+        })
+        .DeclareExchange("communities-events", exchange =>
+        {
+            exchange.ExchangeType = ExchangeType.Fanout;
+            exchange.BindQueue("social-posts");
         });
-
+    
     opt.Policies.DisableConventionalLocalRouting();
 
     opt.UseEntityFrameworkCoreTransactions();

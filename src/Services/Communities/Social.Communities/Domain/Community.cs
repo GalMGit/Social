@@ -8,5 +8,6 @@ public sealed class Community
     public string Name { get; set; }
     public Guid OwnerId { get; set; }
     public string? Description { get; set; }
+    public DateTime CreatedAt { get; set; }
     public ICollection<CommunityMember> Members { get; set; } = [];
 }

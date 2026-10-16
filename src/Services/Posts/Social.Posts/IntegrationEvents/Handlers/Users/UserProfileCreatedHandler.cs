@@ -28,6 +28,8 @@ public sealed class UserProfileCreatedHandler(
             Username = @event.Username
         }, ct);
 
-        logger.LogInformation("KnownUser {UserId} added", @event.UserId);
+        logger.LogInformation(
+            "KnownUser {UserId} added", 
+            @event.UserId);
     }
 }

@@ -11,6 +11,7 @@ public sealed class PostsDbContext : DbContext
 
     public DbSet<Post> Posts => Set<Post>();
     public DbSet<KnownUser> KnownUsers => Set<KnownUser>();
+    public DbSet<KnownCommunity> KnownCommunities => Set<KnownCommunity>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

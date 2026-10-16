@@ -36,13 +36,13 @@ builder.Host.UseWolverine(opt =>
             "CommunitiesDb")!,
         role: MessageStoreRole.Main);
 
-    // opt.ListenToRabbitQueue("social-posts")
-    //     .ConfigureQueue(q =>
-    //     {
-    //         q.IsDurable = true;
-    //         q.AutoDelete = false;
-    //         q.IsExclusive = false;
-    //     });
+    opt.ListenToRabbitQueue("social-communities")
+        .ConfigureQueue(q =>
+        {
+            q.IsDurable = true;
+            q.AutoDelete = false;
+            q.IsExclusive = false;
+        });
 
     opt.ServiceLocationPolicy = ServiceLocationPolicy.AlwaysAllowed;
     opt.AddCommunitiesMessaging(builder.Configuration);

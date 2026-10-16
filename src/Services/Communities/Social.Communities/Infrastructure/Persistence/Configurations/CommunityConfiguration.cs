@@ -15,13 +15,13 @@ public sealed class CommunityConfiguration
 
         builder.Property(c => c.Name)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(20);
 
         builder.Property(c => c.OwnerId)
             .IsRequired();
 
         builder.Property(c => c.Description)
-            .HasMaxLength(1000);
+            .HasMaxLength(200);
 
         builder.HasMany(c => c.Members)
             .WithOne(m => m.Community)

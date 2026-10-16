@@ -23,6 +23,24 @@ namespace Social.Posts.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Social.Posts.Domain.KnownCommunity", b =>
+                {
+                    b.Property<Guid>("CommunityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("CommunityId");
+
+                    b.HasIndex("CommunityId")
+                        .IsUnique();
+
+                    b.ToTable("KnownCommunities", (string)null);
+                });
+
             modelBuilder.Entity("Social.Posts.Domain.KnownUser", b =>
                 {
                     b.Property<Guid>("UserId")
