@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application/" />
       <Folder Include="Application/DTOs/" />
       <Folder Include="DI/" />
       <Folder Include="Domain/" />

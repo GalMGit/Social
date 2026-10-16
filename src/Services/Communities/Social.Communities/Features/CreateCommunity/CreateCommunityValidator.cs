@@ -12,7 +12,7 @@ public sealed class CreateCommunityValidator
             .MaximumLength(20).WithMessage("Название не может быть больше 20 символов");
 
         RuleFor(x => x.Description)
-            .NotEmpty().WithMessage("Описание не может быть пустым")
+            .MinimumLength(2).WithMessage("Описание не может быть меньше 2 символов")
             .MaximumLength(200).WithMessage("Описание не может быть больше 200 символов");
     }
 }

@@ -14,7 +14,7 @@ public static class ResultExtensions
     }
 
     public static IResult ToHttpResponse(
-        this ResultType.Result result)
+        this Result result)
     {
         if (result.IsSuccess)
             return Results.NoContent();
@@ -52,7 +52,13 @@ public static class ResultExtensions
                 Results.Unauthorized(),
 
             ErrorType.Forbidden =>
-                Results.Forbid(),
+                Results.Json(
+                    new
+                    {
+                        error.Code,
+                        error.Message
+                    },
+                    statusCode: StatusCodes.Status403Forbidden),
 
             _ =>
                 Results.BadRequest(new

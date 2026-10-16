@@ -3,6 +3,8 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Social.Contracts.Events.Posts;
 using Social.Posts.Application.Media;
+using Social.Posts.Infrastructure.Authentication;
+using Social.Posts.Infrastructure.Clients.Communities;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
@@ -45,6 +47,21 @@ public static class DependencyInjection
                     nameof(MediaOptions)));
 
             services.AddSingleton<IMediaUrlBuilder, MediaUrlBuilder>();
+            
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IUserAccessToken, HttpUserAccessToken>();
+            
+            services.AddHttpClient<
+                ICommunitiesClient,
+                CommunitiesClient>(client =>
+            {
+                var baseUrl = configuration["Services:Communities"]
+                              ?? throw new InvalidOperationException(
+                                  "Services:Communities is not configured.");
+
+                client.BaseAddress = new Uri(baseUrl);
+            });
 
             services.AddValidatorsFromAssembly(
                 Assembly.GetExecutingAssembly());

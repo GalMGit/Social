@@ -9,6 +9,11 @@ public static class PostErrors
             "post.not_found",
             "Пост не найден.");
 
+    public static readonly Error AccessDenied =
+        Error.Forbidden(
+            "post_create_error",
+            "У вас нет права создавать пост в этом сообществе.");
+
     public static readonly Error TitleTooLong =
         Error.Validation(
             "post.title_too_long",
