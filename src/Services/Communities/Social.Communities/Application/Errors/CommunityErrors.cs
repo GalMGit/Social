@@ -8,4 +8,9 @@ public static class CommunityErrors
         Error.NotFound(
             "community.not_found",
             "Сообщество не найдено.");
+    
+    public static readonly Error AccessDenied = 
+        Error.Forbidden(
+            "community.delete_error",
+            "У вас нет прав для удаления этого сообщества.");
 }

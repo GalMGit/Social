@@ -56,6 +56,9 @@ public static class DependencyInjection
             
             options.PublishMessage<CommunityCreatedEvent>()
                 .ToRabbitExchange("communities-events");
+            
+            options.PublishMessage<CommunityDeletedEvent>()
+                .ToRabbitExchange("communities-events");
         }
     }
 

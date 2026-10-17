@@ -19,6 +19,14 @@
           "Methods": ["GET"]
         }
       },
+      "community-delete": {
+        "ClusterId": "communities",
+        "AuthorizationPolicy": "anonymous",
+        "Match": {
+          "Path": "/api/v1/communities/{communityId}",
+          "Methods": ["DELETE"]
+        }
+      },
       "communities-list": {
         "ClusterId": "communities",
         "AuthorizationPolicy": "anonymous",
