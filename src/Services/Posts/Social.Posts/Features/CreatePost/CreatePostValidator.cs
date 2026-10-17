@@ -18,5 +18,9 @@ public sealed class CreatePostValidator
         RuleFor(x => x.ImagePath)
             .MaximumLength(2048)
             .When(x => x.ImagePath is not null);
+        
+        RuleFor(x => x.ThumbnailImagePath)
+            .MaximumLength(2048)
+            .When(x => x.ThumbnailImagePath is not null);
     }
 }

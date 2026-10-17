@@ -4,4 +4,5 @@ public sealed record CreatePostRequest(
     string Title,
     string Content,
     string? ImagePath,
+    string? ThumbnailImagePath,
     Guid? CommunityId);

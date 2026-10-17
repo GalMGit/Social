@@ -54,7 +54,16 @@ public sealed class FileStorageService : IFileStorageService
         throw new Exception(
             $"Unsupported content type: {detectedContentType}");
     }
-    
+
+    public async Task DeletePostMediaAsync(
+        Guid postId,
+        CancellationToken ct = default)
+    {
+        await _publicStorage.DeletePrefixAsync(
+            $"media/{postId}/",
+            ct);
+    }
+
     private static string CreateMediaKey(
         Guid ownerId, 
         string contentType)

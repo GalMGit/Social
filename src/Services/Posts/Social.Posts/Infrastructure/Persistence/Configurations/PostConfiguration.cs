@@ -32,6 +32,9 @@ public sealed class PostConfiguration
 
         builder.Property(x => x.ImagePath)
             .HasMaxLength(2048);
+        
+        builder.Property(x => x.ThumbnailImagePath)
+            .HasMaxLength(2048);
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();

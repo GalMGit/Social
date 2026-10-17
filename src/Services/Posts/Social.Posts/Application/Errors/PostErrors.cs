@@ -13,6 +13,11 @@ public static class PostErrors
         Error.Forbidden(
             "post_create_error",
             "У вас нет права создавать пост в этом сообществе.");
+    
+    public static readonly Error DeleteAccessDenied =
+        Error.Forbidden(
+            "post_delete_error",
+            "У вас нет права удалить этот пост.");
 
     public static readonly Error TitleTooLong =
         Error.Validation(

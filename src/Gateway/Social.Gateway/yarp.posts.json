@@ -19,6 +19,14 @@
           "Methods": ["GET"]
         }
       },
+      "post-delete": {
+        "ClusterId": "posts",
+        "AuthorizationPolicy": "Authenticated",
+        "Match": {
+          "Path": "/api/v1/posts/{postId}",
+          "Methods": ["DELETE"]
+        }
+      },
       "posts-list": {
         "ClusterId": "posts",
         "AuthorizationPolicy": "anonymous",

@@ -6,6 +6,10 @@ public interface IFileStorageService
         UploadFile file, 
         Guid productId,
         CancellationToken ct = default);
+    
+    Task DeletePostMediaAsync(
+        Guid postId,
+        CancellationToken ct = default);
 }
 
 public sealed record FileUploadResult(

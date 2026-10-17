@@ -14,6 +14,14 @@ public sealed class PostDeletedHandler(
         PostDeletedEvent @event, 
         CancellationToken ct)
     {
+        var exists = await context.KnownPosts
+            .AsNoTracking()
+            .AnyAsync(x => 
+                x.PostId == @event.PostId, ct);
+
+        if (!exists)
+            return;
+        
         await context.KnownPosts
             .Where(x => x.PostId == @event.PostId)
             .ExecuteDeleteAsync(ct);

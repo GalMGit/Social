@@ -278,6 +278,8 @@
       PublicStorageOptions__AccessKey: ${PUBLIC_STORAGE_OPTIONS__ACCESS_KEY}
       PublicStorageOptions__SecretKey: ${PUBLIC_STORAGE_OPTIONS__SECRET_KEY}
       PublicStorageOptions__BaseUrl: ${PUBLIC_STORAGE_OPTIONS__BASE_URL}
+      
+      ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
 
     ports:
       - "${MEDIA_PORT}:8080"

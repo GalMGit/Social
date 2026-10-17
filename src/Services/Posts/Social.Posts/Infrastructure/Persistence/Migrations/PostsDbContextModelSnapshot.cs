@@ -86,6 +86,10 @@ namespace Social.Posts.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("character varying(2048)");
 
+                    b.Property<string>("ThumbnailImagePath")
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)

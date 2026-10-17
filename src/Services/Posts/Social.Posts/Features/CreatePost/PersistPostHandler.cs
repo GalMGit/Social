@@ -25,6 +25,7 @@ public sealed class PersistPostHandler(
             Title = request.Title,
             Content = request.Content,
             ImagePath = request.ImagePath,
+            ThumbnailImagePath = request.ThumbnailImagePath,
             CommunityId = request.CommunityId,
             CreatedAt = DateTime.UtcNow
         };

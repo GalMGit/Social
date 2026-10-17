@@ -80,6 +80,9 @@ public static class DependencyInjection
 
             options.PublishMessage<PostCreatedEvent>()
                 .ToRabbitExchange("posts-events");
+            
+            options.PublishMessage<PostDeletedEvent>()
+                .ToRabbitExchange("posts-events");
         }
     }
 

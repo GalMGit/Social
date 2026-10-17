@@ -1,16 +1,29 @@
 using System.Reflection;
 using Microsoft.Extensions.Options;
+using Social.Contracts.Events.Posts;
 using Social.Media.Application.Abstractions.IServices.IMediaServices;
 using Social.Media.Infrastructure.Storage;
 using Social.Media.Infrastructure.Storage.Factories;
 using Social.Media.Infrastructure.Storage.Options;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
+using Wolverine;
+using Wolverine.RabbitMQ;
 
 namespace Social.Media.DI;
 
 public static class DependencyInjection
 {
+    extension(WolverineOptions options)
+    {
+        public void AddMediaMessaging(
+            IConfiguration configuration)
+        {
+            options.Discovery.IncludeAssembly(
+                Assembly.GetExecutingAssembly());
+        }
+    }
+    
     extension(IServiceCollection services)
     {
         public IServiceCollection AddConfiguration(

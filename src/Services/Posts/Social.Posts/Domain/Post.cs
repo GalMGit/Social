@@ -8,6 +8,7 @@ public sealed class Post
     public string Content { get; set; } = null!;
     public Guid? CommunityId { get; set; }
     public string? ImagePath { get; set; }
+    public string? ThumbnailImagePath { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }

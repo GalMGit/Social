@@ -10,8 +10,7 @@ public sealed class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(
-                "internal/communities/{communityId:guid}/posting-permission",
+        app.MapGet("internal/communities/{communityId:guid}/posting-permission", 
                 async (
                     Guid communityId,
                     ClaimsPrincipal user,
@@ -20,13 +19,13 @@ public sealed class Endpoint : IEndpoint
                 {
                     var result = await bus.InvokeAsync<
                         Result<PostingPermissionResponse>>(
-                            new CheckPostingPermissionQuery(
-                                communityId,
-                                user.GetUserId()), ct);
+                        new CheckPostingPermissionQuery(
+                            communityId,
+                            user.GetUserId()), ct);
 
                     return result.ToHttpResponse();
                 })
-            .WithTags("Internal Communities")
-            .RequireAuthorization();
+                .RequireAuthorization()
+                .ExcludeFromDescription();
     }
 }
