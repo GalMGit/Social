@@ -6,6 +6,7 @@ public sealed record PostResponse(
     string Title, 
     string Content,
     Guid? CommunityId,
+    string? CommunityName,
     string? ImageUrl,
     string? AuthorName,
     DateTime CreatedAt);

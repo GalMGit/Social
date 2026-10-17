@@ -46,6 +46,10 @@ public sealed class GetPostByIdHandler(
                 x.Title,
                 x.Content,
                 x.CommunityId,
+                context.KnownCommunities
+                    .Where(u => u.CommunityId == x.CommunityId)
+                    .Select(u => u.Name)
+                    .FirstOrDefault(),
                 urlBuilder.ToPublicUrl(x.ImagePath),
                 context.KnownUsers
                     .Where(u => u.UserId == x.AuthorId)
