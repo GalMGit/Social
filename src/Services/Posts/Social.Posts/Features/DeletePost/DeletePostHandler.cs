@@ -16,32 +16,44 @@ public sealed class DeletePostHandler(
         DeletePostCommand command, 
         CancellationToken ct)
     {
-        var exists = await context.Posts
+        var post = await context.Posts
             .AsNoTracking()
-            .AnyAsync(x =>
-                x.Id == command.PostId, ct);
+            .Where(x => x.Id == command.PostId)
+            .Select(x => new
+            {
+                x.Id,
+                x.AuthorId,
+                x.ImagePath,
+                x.ThumbnailImagePath
+            })
+            .FirstOrDefaultAsync(ct);
 
-        if (!exists)
+        if (post is null)
             return Result.Failure(
                 PostErrors.NotFound);
 
-        var canDelete = await context.Posts
-            .AsNoTracking()
-            .AnyAsync(x => 
-                x.AuthorId == command.UserId, ct);
-
-        if (!canDelete)
+        if (post.AuthorId != command.UserId)
             return Result.Failure(
-                PostErrors.AccessDenied);
+                PostErrors.DeleteAccessDenied);
 
         await context.Posts
             .Where(x => 
                 x.Id == command.PostId)
             .ExecuteDeleteAsync(ct);
 
+        var mediaKeys = new[]
+            {
+                post.ImagePath,
+                post.ThumbnailImagePath
+            }
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x!)
+            .ToArray();
+
         await bus.PublishAsync(
             new PostDeletedEvent(
-                command.PostId));
+                post.Id,
+                mediaKeys));
 
         return Result.Success();
     }

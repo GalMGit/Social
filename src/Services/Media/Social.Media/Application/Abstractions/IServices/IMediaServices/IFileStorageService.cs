@@ -8,7 +8,7 @@ public interface IFileStorageService
         CancellationToken ct = default);
     
     Task DeletePostMediaAsync(
-        Guid postId,
+        IEnumerable<string> mediaKeys,
         CancellationToken ct = default);
 }
 

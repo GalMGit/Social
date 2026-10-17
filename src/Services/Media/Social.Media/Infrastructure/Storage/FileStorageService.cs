@@ -56,12 +56,11 @@ public sealed class FileStorageService : IFileStorageService
     }
 
     public async Task DeletePostMediaAsync(
-        Guid postId,
+        IEnumerable<string> mediaKeys,
         CancellationToken ct = default)
     {
-        await _publicStorage.DeletePrefixAsync(
-            $"media/{postId}/",
-            ct);
+        foreach (var key in mediaKeys)
+            await _publicStorage.DeleteAsync(key, ct);
     }
 
     private static string CreateMediaKey(

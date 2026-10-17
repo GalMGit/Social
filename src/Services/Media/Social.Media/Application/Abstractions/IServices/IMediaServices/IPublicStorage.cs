@@ -15,4 +15,8 @@ public interface IPublicStorage
     Task DeletePrefixAsync(
         string prefix,
         CancellationToken ct = default);
+
+    Task<bool> ExistsAsync(
+        string key,
+        CancellationToken ct = default);
 }
