@@ -25,5 +25,10 @@ public sealed class CommunityDeletedHandler(
             .Where(x =>
                 x.CommunityId == @event.CommunityId)
             .ExecuteDeleteAsync(ct);
+
+        await context.Posts
+            .Where(x =>
+                x.CommunityId == @event.CommunityId)
+            .ExecuteDeleteAsync(ct);
     }
 }
