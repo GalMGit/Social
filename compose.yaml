@@ -11,8 +11,6 @@
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -32,9 +30,6 @@
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
@@ -59,8 +54,6 @@
         "--requirepass",
         "${REDIS_PASSWORD}"
       ]
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -124,9 +117,6 @@
       Identity__Admin__Email: ${ADMIN_EMAIL}
       Identity__Admin__Password: ${ADMIN_PASSWORD}
 
-    ports:
-      - "${IDENTITY_PORT}:8080"
-
     depends_on:
       postgres:
         condition: service_healthy
@@ -134,7 +124,6 @@
         condition: service_healthy
       redis:
         condition: service_healthy
-
 
   # =========================
   # Users
@@ -157,15 +146,11 @@
 
       MediaOptions__BaseUrl: https://ccc4224abb9e-nothing-public.s3.ru1.storage.beget.cloud
 
-    ports:
-      - "${USERS_PORT}:8080"
-
     depends_on:
       postgres:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-
 
   # =========================
   # Posts
@@ -189,9 +174,6 @@
 
       MediaOptions__BaseUrl: https://ccc4224abb9e-nothing-public.s3.ru1.storage.beget.cloud
 
-    ports:
-      - "${POSTS_PORT}:8080"
-
     depends_on:
       postgres:
         condition: service_healthy
@@ -199,7 +181,11 @@
         condition: service_healthy
       redis:
         condition: service_healthy
-        
+
+  # =========================
+  # Communities
+  # =========================
+
   social.communities:
     image: social.communities
     container_name: social-communities
@@ -216,9 +202,6 @@
       JwtOptions__SecretKey: ${JWT_SECRET_KEY}
       JwtOptions__Expires: ${JWT_EXPIRES}
 
-    ports:
-      - "${COMMUNITIES_PORT}:8080"
-
     depends_on:
       postgres:
         condition: service_healthy
@@ -226,7 +209,6 @@
         condition: service_healthy
       redis:
         condition: service_healthy
-
 
   # =========================
   # Comments
@@ -247,15 +229,11 @@
       JwtOptions__SecretKey: ${JWT_SECRET_KEY}
       JwtOptions__Expires: ${JWT_EXPIRES}
 
-    ports:
-      - "${COMMENTS_PORT}:8080"
-
     depends_on:
       postgres:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-
 
   # =========================
   # Media
@@ -278,11 +256,12 @@
       PublicStorageOptions__AccessKey: ${PUBLIC_STORAGE_OPTIONS__ACCESS_KEY}
       PublicStorageOptions__SecretKey: ${PUBLIC_STORAGE_OPTIONS__SECRET_KEY}
       PublicStorageOptions__BaseUrl: ${PUBLIC_STORAGE_OPTIONS__BASE_URL}
-      
+
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
 
-    ports:
-      - "${MEDIA_PORT}:8080"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
   # =========================
   # Gateway
@@ -307,9 +286,9 @@
       - social.identity
       - social.users
       - social.posts
+      - social.communities
       - social.comments
       - social.media
-
 
 volumes:
   postgres_data:

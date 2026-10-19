@@ -21,7 +21,7 @@
       },
       "community-delete": {
         "ClusterId": "communities",
-        "AuthorizationPolicy": "anonymous",
+        "AuthorizationPolicy": "Authenticated",
         "Match": {
           "Path": "/api/v1/communities/{communityId}",
           "Methods": ["DELETE"]

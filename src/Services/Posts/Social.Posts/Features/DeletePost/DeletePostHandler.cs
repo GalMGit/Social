@@ -5,9 +5,11 @@ using Social.Posts.Application.Errors;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.ResultType;
 using Wolverine;
+using Wolverine.Attributes;
 
 namespace Social.Posts.Features.DeletePost;
 
+[Transactional(typeof(PostsDbContext))]
 public sealed class DeletePostHandler(
     PostsDbContext context,
     IMessageBus bus)
