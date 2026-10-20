@@ -2,6 +2,7 @@ import type {LoginRequest} from "../../models/auth/login/requests/LoginRequest.t
 import {apiService} from "../api-service/apiService.ts";
 import type {LoginResponse} from "../../models/auth/login/responses/LoginResponse.ts";
 import type {RegisterRequest} from "../../models/auth/register/requests/RegisterRequest.ts";
+import type {ConfirmEmailRequest} from "../../models/auth/confirm-email/requests/ConfirmEmailRequest.ts";
 
 export const authService = {
     login: (data: LoginRequest) =>
@@ -9,4 +10,7 @@ export const authService = {
 
     register: (data: RegisterRequest) =>
         apiService.post("auth/register", data),
+
+    confirmEmail: (data: ConfirmEmailRequest) =>
+        apiService.post("auth/email/confirm", data)
 }

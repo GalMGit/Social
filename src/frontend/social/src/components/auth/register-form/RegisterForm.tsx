@@ -34,8 +34,9 @@ export const RegisterForm = () => {
                 confirmPassword,
             });
 
-            navigate("/auth/login", {
+            navigate("/auth/confirm-email", {
                 replace: true,
+                state: { email },
             });
         } catch (error: any) {
             const message =

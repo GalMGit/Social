@@ -7,6 +7,7 @@ import {RegisterForm} from "../auth/register-form/RegisterForm.tsx";
 import {Home} from "../home/Home.tsx";
 import {PostView} from "../posts/post-view/PostView.tsx";
 import PostCreate from "../posts/post-create/PostCreate.tsx";
+import {ConfirmEmail} from "../auth/confirmemail-form/ConfirmEmail.tsx";
 
 
 export const App = () => {
@@ -24,6 +25,7 @@ export const App = () => {
                             <Route index element={<LoginForm/>}/>
                             <Route path={"login"} element={<LoginForm/>}/>
                             <Route path={"register"} element={<RegisterForm/>}/>
+                            <Route path={"confirm-email"} element={<ConfirmEmail/>}/>
                         </Route>
                     </Route>
 
