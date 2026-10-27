@@ -8,7 +8,7 @@ using Social.Identity.Infrastructure.Persistence.Database.Context;
 
 #nullable disable
 
-namespace Social.Identity.Migrations
+namespace Social.Identity.Infrastructure.Persistence.Database.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
     partial class IdentityDbContextModelSnapshot : ModelSnapshot
@@ -102,9 +102,17 @@ namespace Social.Identity.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("character varying(25)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);

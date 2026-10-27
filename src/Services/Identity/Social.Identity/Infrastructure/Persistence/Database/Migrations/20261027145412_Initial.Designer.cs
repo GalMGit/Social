@@ -9,10 +9,10 @@ using Social.Identity.Infrastructure.Persistence.Database.Context;
 
 #nullable disable
 
-namespace Social.Identity.Migrations
+namespace Social.Identity.Infrastructure.Persistence.Database.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20260927173320_Initial")]
+    [Migration("20261027145412_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,40 +25,6 @@ namespace Social.Identity.Migrations
                 .HasAnnotation("WolverineEnabled", "true");
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("RolePermissions", b =>
-                {
-                    b.Property<Guid>("PermissionsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("PermissionsId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RolePermissions");
-                });
-
-            modelBuilder.Entity("Social.Identity.Domain.Permission", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Permissions", (string)null);
-                });
 
             modelBuilder.Entity("Social.Identity.Domain.RefreshToken", b =>
                 {
@@ -141,8 +107,8 @@ namespace Social.Identity.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(25)
+                        .HasColumnType("character varying(25)");
 
                     b.HasKey("Id");
 
@@ -260,21 +226,6 @@ namespace Social.Identity.Migrations
                         {
                             t.ExcludeFromMigrations();
                         });
-                });
-
-            modelBuilder.Entity("RolePermissions", b =>
-                {
-                    b.HasOne("Social.Identity.Domain.Permission", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Social.Identity.Domain.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Social.Identity.Domain.RefreshToken", b =>

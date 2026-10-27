@@ -19,6 +19,13 @@ public sealed class UserConfiguration
 
         builder.HasIndex(x => x.Email)
             .IsUnique();
+        
+        builder.Property(x => x.Username)
+            .IsRequired()
+            .HasMaxLength(25);
+        
+        builder.HasIndex(x => x.Username)
+            .IsUnique();
 
         builder.Property(x => x.PasswordHash)
             .IsRequired();

@@ -1,4 +1,5 @@
 using JasperFx.CodeGeneration.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using Social.Identity.DI;
@@ -13,8 +14,11 @@ using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
-await DatabaseBootstrapper.EnsureDatabaseExistsAsync(
-    builder.Configuration.GetConnectionString("IdentityDb")!);
+if (!EF.IsDesignTime)
+{
+    await DatabaseBootstrapper.EnsureDatabaseExistsAsync(
+        builder.Configuration.GetConnectionString("IdentityDb")!);
+}
 
 builder.Host.UseWolverine(opt =>
 {

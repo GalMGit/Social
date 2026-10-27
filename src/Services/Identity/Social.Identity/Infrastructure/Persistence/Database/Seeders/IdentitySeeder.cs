@@ -72,6 +72,7 @@ public static class IdentitySeeder
         {
             Id = Guid.CreateVersion7(),
             Email = options.Email,
+            Username = options.Username,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(
                 options.Password),
             CreatedAt = DateTime.UtcNow,

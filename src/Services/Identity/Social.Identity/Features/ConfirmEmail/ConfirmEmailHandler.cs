@@ -37,14 +37,6 @@ public sealed class ConfirmEmailHandler(
         if (tempUser.CodeExpiresAt < DateTime.UtcNow)
             return Result.Failure(
                 UserErrors.ConfirmationCodeExpired);
-
-        var emailExist = await context.Users
-            .AnyAsync(x => 
-                x.Email == tempUser.Email, ct);
-
-        if (emailExist)
-            return Result.Failure(
-                UserErrors.EmailExists);
         
         var userRole = await context.Roles
             .SingleAsync(x =>
@@ -53,6 +45,7 @@ public sealed class ConfirmEmailHandler(
         var user = new User
         {
             Id = tempUser.Id,
+            Username = tempUser.Username,
             CreatedAt = tempUser.CreatedAt,
             Email = tempUser.Email,
             PasswordHash = tempUser.PasswordHash,

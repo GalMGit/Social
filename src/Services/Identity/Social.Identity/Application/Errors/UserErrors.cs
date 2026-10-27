@@ -14,6 +14,11 @@ public static class UserErrors
             "user.email_exists",    
             "Этот Email занят.");
     
+    public static readonly Error UsernameExists =
+        Error.NotFound(
+            "user.username_exists",    
+            "Этот Username занят.");
+    
     public static readonly Error ConfirmationCodeNotFound =
         Error.NotFound(
             "user.confirmation_code_not_found", 
