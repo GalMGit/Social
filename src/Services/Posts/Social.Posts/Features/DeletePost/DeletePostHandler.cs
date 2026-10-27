@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Social.Contracts.Events.Communities;
 using Social.Contracts.Events.Posts;
+using Social.Posts.Application.Caching;
 using Social.Posts.Application.Errors;
 using Social.Posts.Infrastructure.Persistence.Context;
 using Social.Shared.ResultType;
@@ -12,6 +14,7 @@ namespace Social.Posts.Features.DeletePost;
 [Transactional(typeof(PostsDbContext))]
 public sealed class DeletePostHandler(
     PostsDbContext context,
+    IDistributedCache cache,
     IMessageBus bus)
 {
     public async Task<Result> Handle(
@@ -56,6 +59,9 @@ public sealed class DeletePostHandler(
             new PostDeletedEvent(
                 post.Id,
                 mediaKeys));
+        
+        await cache.RemoveAsync(PostCacheKeys.ById(post.Id), ct);
+        await cache.RemoveAsync(PostCacheKeys.All, ct);
 
         return Result.Success();
     }

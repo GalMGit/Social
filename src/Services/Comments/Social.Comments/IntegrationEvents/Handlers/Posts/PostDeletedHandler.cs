@@ -11,17 +11,9 @@ public sealed class PostDeletedHandler(
     ILogger<PostDeletedHandler> logger)
 {
     public async Task Handle(
-        PostDeletedEvent @event, 
+        PostDeletedEvent @event,
         CancellationToken ct)
     {
-        var exists = await context.KnownPosts
-            .AsNoTracking()
-            .AnyAsync(x => 
-                x.PostId == @event.PostId, ct);
-
-        if (!exists)
-            return;
-        
         await context.KnownPosts
             .Where(x => x.PostId == @event.PostId)
             .ExecuteDeleteAsync(ct);
@@ -32,6 +24,7 @@ public sealed class PostDeletedHandler(
 
         logger.LogInformation(
             "Post {PostId} removed, {Count} comments deleted",
-            @event.PostId, removed);
+            @event.PostId,
+            removed);
     }
 }
