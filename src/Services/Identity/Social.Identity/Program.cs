@@ -23,8 +23,9 @@ if (!EF.IsDesignTime)
 builder.Host.UseWolverine(opt =>
 {
     opt.UseRabbitMq(
-        builder.Configuration.GetConnectionString(
-            "RabbitMq")!);
+            builder.Configuration.GetConnectionString(
+                "RabbitMq")!)
+        .AutoProvision();
 
     opt.Policies.DisableConventionalLocalRouting();
 
