@@ -5,6 +5,7 @@ using Scalar.AspNetCore;
 using Social.Identity.DI;
 using Social.Shared.Authentication;
 using Social.Shared.Endpoint;
+using Social.Shared.Observability;
 using Social.Shared.OpenApi;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -13,6 +14,8 @@ using Wolverine.Postgresql;
 using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddObservability();
 
 if (!EF.IsDesignTime)
 {
@@ -47,6 +50,8 @@ builder.Services.AddOpenApiWithBearer();
 builder.Services.AddIdentity(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseObservability();
 
 await app.Services.MigrateIdentityAsync();
 

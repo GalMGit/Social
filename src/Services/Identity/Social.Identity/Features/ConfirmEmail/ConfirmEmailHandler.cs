@@ -21,7 +21,9 @@ public sealed class ConfirmEmailHandler(
         ConfirmEmailCommand command,
         CancellationToken ct)
     {
-        var cacheKey = $"temp_user:{command.Request.Email}";
+        var email = command.Request.Email.Trim().ToLowerInvariant();
+        
+        var cacheKey = $"temp_user:{email}";
         
         var tempUser = await cacheService.GetAsync<TempUser>(
             cacheKey, ct);

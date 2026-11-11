@@ -2,6 +2,7 @@ using JasperFx.CodeGeneration.Model;
 using Scalar.AspNetCore;
 using Social.Posts.DI;
 using Social.Shared.Endpoint;
+using Social.Shared.Observability;
 using Social.Shared.OpenApi;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using Wolverine.Postgresql;
 using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddObservability();
 
 builder.Host.UseWolverine(opt =>
 {
@@ -58,6 +61,8 @@ builder.Services.AddOpenApiWithBearer();
 builder.Services.AddPosts(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseObservability();
 
 await app.Services.InitializePostsAsync();
 

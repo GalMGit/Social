@@ -1,8 +1,11 @@
 using System.Threading.RateLimiting;
 using Scalar.AspNetCore;
 using Social.Shared.Authentication;
+using Social.Shared.Observability;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddObservability();
 
 builder.Configuration
     .AddJsonFile(
@@ -178,6 +181,8 @@ builder.Services.AddRateLimiter(options =>
 var app = builder.Build();
 
 app.UseRouting();
+
+app.UseObservability();
 
 app.UseCors("FrontendClient");
 

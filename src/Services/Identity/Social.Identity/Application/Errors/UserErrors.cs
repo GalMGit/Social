@@ -10,12 +10,12 @@ public static class UserErrors
             "Пользователь не найден.");
     
     public static readonly Error EmailExists =
-        Error.NotFound(
+        Error.Conflict(
             "user.email_exists",    
             "Этот Email занят.");
     
     public static readonly Error UsernameExists =
-        Error.NotFound(
+        Error.Conflict(
             "user.username_exists",    
             "Этот Username занят.");
     

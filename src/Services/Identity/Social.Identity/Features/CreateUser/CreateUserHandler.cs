@@ -21,7 +21,10 @@ public sealed class CreateUserHandler(
         CreateUserCommand command,
         CancellationToken ct)
     {
-        var cacheKey = $"temp_user:{command.Request.Email}";
+        var email = command.Request.Email.Trim().ToLowerInvariant();
+        var username = command.Request.Username.Trim().ToLowerInvariant();
+        
+        var cacheKey = $"temp_user:{email}";
         
         if (await cacheService.ExistsAsync(
                 cacheKey, ct))
@@ -30,7 +33,7 @@ public sealed class CreateUserHandler(
         
         var emailExists = await context.Users
             .AnyAsync(x => 
-                x.Email == command.Request.Email, ct);
+                x.Email == email, ct);
 
         if (emailExists)
             return Result.Failure(
@@ -38,7 +41,7 @@ public sealed class CreateUserHandler(
 
         var usernameExists = await context.Users
             .AnyAsync(x => 
-                x.Username == command.Request.Username, ct);
+                x.Username == username, ct);
         
         if (usernameExists)
             return Result.Failure(
@@ -52,8 +55,8 @@ public sealed class CreateUserHandler(
         var tempUser = new TempUser
         {
             Id = Guid.CreateVersion7(),
-            Username = command.Request.Username,
-            Email = command.Request.Email,
+            Username = username,
+            Email = email,
             PasswordHash = passwordHasher.GenerateHash(
                 command.Request.Password),
             CreatedAt = DateTime.UtcNow,

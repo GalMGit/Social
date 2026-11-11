@@ -1,4 +1,4 @@
-﻿services:
+services:
 
   # =========================
   # Infrastructure
@@ -70,6 +70,92 @@
       retries: 10
 
   # =========================
+  # Observability
+  # =========================
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.165.0
+    container_name: social-otel-collector
+    restart: unless-stopped
+    command:
+      [
+        "--config=/etc/otel/config.yaml"
+      ]
+    volumes:
+      - ./infra/observability/otel-collector-config.yaml:/etc/otel/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+
+  prometheus:
+    image: prom/prometheus:v3.16.0
+    container_name: social-prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+    volumes:
+      - ./infra/observability/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - otel-collector
+
+  loki:
+    image: grafana/loki:3.7.9
+    container_name: social-loki
+    restart: unless-stopped
+    command:
+      [
+        "-config.file=/etc/loki/loki.yaml"
+      ]
+    volumes:
+      - ./infra/observability/loki.yaml:/etc/loki/loki.yaml:ro
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+
+  tempo:
+    image: grafana/tempo:2.10.10
+    container_name: social-tempo
+    restart: unless-stopped
+    command:
+      [
+        "-config.file=/etc/tempo/tempo.yaml"
+      ]
+    volumes:
+      - ./infra/observability/tempo.yaml:/etc/tempo/tempo.yaml:ro
+      - tempo_data:/var/tempo
+    ports:
+      - "3200:3200"
+
+  grafana:
+    image: grafana/grafana:12.4.14
+    container_name: social-grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_DEFAULT_THEME: dark
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      # Гасим только «шумные» логгеры: запросы к Loki, HTTP-запросы и сервис
+      # дашбордов. Реальные предупреждения и ошибки остаются.
+      GF_LOG_FILTERS: "tsdb.loki:error,context:error,dashboard-service:error,bleve-backend:error,infra.usagestats:error"
+    volumes:
+      - ./infra/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - loki
+      - tempo
+
+  # =========================
   # Email
   # =========================
 
@@ -106,6 +192,10 @@
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
 
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+
       ConnectionStrings__IdentityDb: Host=postgres;Port=5432;Database=${IDENTITY_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
       ConnectionStrings__Redis: redis:6379,password=${REDIS_PASSWORD},abortConnect=false
@@ -138,6 +228,10 @@
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
 
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+
       ConnectionStrings__UsersDb: Host=postgres;Port=5432;Database=${USERS_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
 
@@ -164,6 +258,10 @@
       dockerfile: src/Services/Posts/Social.Posts/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
 
       ConnectionStrings__PostsDb: Host=postgres;Port=5432;Database=${POSTS_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
@@ -195,6 +293,10 @@
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
 
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+
       ConnectionStrings__CommunitiesDb: Host=postgres;Port=5432;Database=${COMMUNITIES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
       ConnectionStrings__Redis: redis:6379,password=${REDIS_PASSWORD},abortConnect=false
@@ -223,6 +325,10 @@
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
 
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+
       ConnectionStrings__CommentsDb: Host=postgres;Port=5432;Database=${COMMENTS_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
       ConnectionStrings__RabbitMq: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:${RABBITMQ_PORT}
 
@@ -247,6 +353,10 @@
       dockerfile: src/Services/Media/Social.Media/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
 
       JwtOptions__SecretKey: ${JWT_SECRET_KEY}
       JwtOptions__Expires: ${JWT_EXPIRES}
@@ -276,6 +386,10 @@
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
 
+      Observability__OtlpEndpoint: http://otel-collector:4317
+      # Экспорт метрик раз в 15s вместо дефолтных 60s — дашборд отзывается быстрее.
+      OTEL_METRIC_EXPORT_INTERVAL: "15000"
+
       JwtOptions__SecretKey: ${JWT_SECRET_KEY}
       JwtOptions__Expires: ${JWT_EXPIRES}
 
@@ -294,3 +408,7 @@ volumes:
   postgres_data:
   rabbitmq_data:
   redis_data:
+  prometheus_data:
+  loki_data:
+  tempo_data:
+  grafana_data:
