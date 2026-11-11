@@ -39,6 +39,19 @@ public sealed class ConfirmEmailHandler(
         if (tempUser.CodeExpiresAt < DateTime.UtcNow)
             return Result.Failure(
                 UserErrors.ConfirmationCodeExpired);
+
+        var normalizedEmail = tempUser.Email.Trim().ToLowerInvariant();
+        var normalizedUsername = tempUser.Username.Trim().ToLowerInvariant();
+
+        if (await context.Users.AnyAsync(
+                x => x.Email.ToLower() == normalizedEmail, ct))
+            return Result.Failure(
+                UserErrors.EmailExists);
+
+        if (await context.Users.AnyAsync(
+                x => x.Username.ToLower() == normalizedUsername, ct))
+            return Result.Failure(
+                UserErrors.UsernameExists);
         
         var userRole = await context.Roles
             .SingleAsync(x =>

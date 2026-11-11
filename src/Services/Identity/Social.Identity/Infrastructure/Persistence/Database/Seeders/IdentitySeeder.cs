@@ -62,8 +62,10 @@ public static class IdentitySeeder
     {
         var db = outbox.DbContext;
 
+        var adminEmail = options.Email.Trim().ToLowerInvariant();
+
         var adminExists = await db.Users
-            .AnyAsync(x => x.Email == options.Email, ct);
+            .AnyAsync(x => x.Email.ToLower() == adminEmail, ct);
 
         if (adminExists)
             return;

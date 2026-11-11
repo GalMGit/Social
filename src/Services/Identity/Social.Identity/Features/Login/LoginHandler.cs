@@ -15,10 +15,12 @@ public sealed class LoginHandler(
         LoginCommand command,
         CancellationToken ct)
     {
+        var email = command.Request.Email.Trim().ToLowerInvariant();
+        
         var user = await context.Users
             .Include(x => x.Roles)
             .FirstOrDefaultAsync(x => 
-                x.Email == command.Request.Email, ct);
+                x.Email.ToLower() == email, ct);
 
         if (user is null || !passwordHasher.VerifyHash(
                 command.Request.Password, user.PasswordHash))
